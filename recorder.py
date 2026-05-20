@@ -765,7 +765,7 @@ def start_recording(url, quality, room_id, anchor_name=""):
     outfile_pattern = os.path.join(OUTPUT_DIR, f"{base}_%03d.mp4")
     audiofile = os.path.join(OUTPUT_DIR, f"{base}.wav")
 
-    with open(os.path.join(OUTPUT_DIR, f"{room_id}_meta.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUTPUT_DIR, f"{base}_meta.json"), "w", encoding="utf-8") as f:
         json.dump({"room_id": room_id, "anchor_name": anchor_name,
                    "filename_base": base, "audio": f"{base}.wav",
                    "quality": quality, "seg_duration": seg_duration}, f)
