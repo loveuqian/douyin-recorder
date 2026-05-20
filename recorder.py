@@ -914,6 +914,7 @@ def check_renew(elapsed):
 
 
 def run():
+    global _iter_watchdog
     rooms = load_rooms_from_github()
     if not rooms:
         rooms = load_rooms()
