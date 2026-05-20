@@ -1,7 +1,9 @@
-name: 抖音直播24小时监控
+name: 24h�������
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [record_lives]
 
 env:
   PYTHON_VERSION: '3.11'
@@ -19,22 +21,30 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - name: Cache
+      - name: Cache pip/pw
         uses: actions/cache@v4
         with:
           path: |
             ~/.cache/pip
             ~/.cache/ms-playwright
-            /home/runner/.cache/ms-playwright
             ~/.cache/torch
             ~/.cache/modelscope
             ~/.cache/huggingface
           key: deps-v4-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
           restore-keys: |
-            deps-v4-${{ runner.os }}-
-            deps-v4-
+            deps-v3-${{ runner.os }}-
+            deps-v3-
             deps-
+            dep-
             de
+      - name: Cache apt
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          key: apt-ffmpeg-${{ runner.os }}-${{ hashFiles('.github/workflows/continuous.yml') }}
+          restore-keys: |
+            apt-ffmpeg-${{ runner.os }}-
+            apt-ffmpeg-
       - name: Install deps
         run: |
           sudo apt-get update -qq
@@ -47,9 +57,9 @@ jobs:
           pip install --timeout 120 playwright
           mkdir -p /tmp/recordings /tmp/transcripts
       - name: Install Playwright browsers
-        run: |
-          python -m playwright install chromium --with-deps
-          echo "Browser installed to: $(python -c 'import playwright;print(playwright.__file__)')"
+        run: python -m playwright install chromium
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
       - name: Show TH time
         run: |
           echo 'GitHub UTC: ' $(date -u '+%Y-%m-%d %H:%M:%S')
