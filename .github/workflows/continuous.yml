@@ -39,7 +39,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /var/cache/apt/archives
-          key: apt-ffmpeg-${{ runner.os }}-${{ hashFiles('.github/workflows/continuous.yml') }}
+          key: apt-ffmpeg-${{ runner.os }}
           restore-keys: |
             apt-ffmpeg-${{ runner.os }}-
             apt-ffmpeg-
