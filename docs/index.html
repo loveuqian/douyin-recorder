@@ -317,6 +317,10 @@ function pfn(n){
 
   if(m)return{id:m[1],s:m[2],e:null};
 
+  // 5c) roomid_start_meta.{end}.json (new format with end timestamp)
+  m=pre.match(/^(\d+)_(\d{8}_\d{6})_meta\.\d{8}_\d{6}$/);
+  if(m)return{id:m[1],s:m[2],e:null};
+
   // Fallback: roomid-only prefix (for _meta.json, danmaku.srt or unknown patterns)
   var mid=n.match(/^(\d+)/);
   if(mid)return{id:mid[1],s:null,e:null};
