@@ -311,7 +311,7 @@ function pfn(n){
 
   if(m)return{id:m[1],s:m[2],e:null};
 
-  // Fallback: roomid-only prefix (for danmaku.srt or unknown patterns)
+  // Fallback: roomid-only prefix (for _meta.json, danmaku.srt or unknown patterns)
   var mid=n.match(/^(\d+)/);
   if(mid)return{id:mid[1],s:null,e:null};
 
@@ -367,7 +367,7 @@ async function lo(){
 
     rs.forEach(function(r){r.assets.forEach(function(a){
 
-      if(a.ty=='m'){if(!mt[a.ri+'|'+a.st])mt[a.ri+'|'+a.st]=a.u;return;}
+      if(a.ty=='m'){if(!mt[a.ri+'|'+a.st])mt[a.ri+'|'+a.st]=a.u;if(a.ri&&!mt[a.ri])mt[a.ri]=a.u;return;}
 
       var t=gt(a.name),p=pfn(a.name),id=p?p.id:null,an=id?gb(id):null;
 
@@ -495,7 +495,7 @@ function rp(mt){
 
     h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
 
-    var mkk=p.ri+'|'+p.st;if(mt&&mt[mkk]){h+='<div class="peak" id="pk'+mkk.replace(/[^0-9]/g,'')+'"><span class="pkl">...</span></div>';(async function(kk,mi){try{var r=await fetch(mt[kk]);var md=await r.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md.peak_viewers?'<span class="pkl">\u2601 '+Number(md.peak_viewers).toLocaleString()+'</span>':'<span class="pkl" style="color:var(--text-dim)">-</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''));}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+    var mkk=p.ri+'|'+p.st;var mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];if(mu){h+='<div class="peak" id="pk'+mkk.replace(/[^0-9]/g,'')+'"><span class="pkl">...</span></div>';(async function(kk,mi){try{var r=await fetch(mu);var md=await r.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md.peak_viewers?'<span class="pkl">\u2601 '+Number(md.peak_viewers).toLocaleString()+'</span>':'<span class="pkl" style="color:var(--text-dim)">-</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''));}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
 
     h+='</div></div>';
 
