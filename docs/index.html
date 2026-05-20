@@ -377,7 +377,7 @@ async function lo(){
 
     rs.forEach(function(r){r.assets.forEach(function(a){
 
-      var t=gt(a.name),p=pfn(a.name),id=p?p.id:null;if(t=='m'){var mk=id+'|'+(p&&p.s?p.s:'');try{var _bd=JSON.parse(r.body||'{}');if(_bd&&_bd.pv){mt[mk]={pv:_bd.pv};}else{mt[mk]=a.url;}}catch(e){mt[mk]=a.url;}if(id&&!mt[id])mt[id]=a.url;return;}
+      var t=gt(a.name),p=pfn(a.name),id=p?p.id:null;if(t=='m'){var mk=id+'|'+(p&&p.s?p.s:'');try{var _bd=JSON.parse(r.body||'{}');if(_bd&&_bd.pv){mt[mk]={pv:_bd.pv};if(id)mt[id]={pv:_bd.pv};}else{mt[mk]=a.url;}}catch(e){mt[mk]=a.url;}if(id&&!mt[id])mt[id]=a.url;return;}
 
       var t=gt(a.name),p=pfn(a.name),id=p?p.id:null,an=id?gb(id):null;
 
