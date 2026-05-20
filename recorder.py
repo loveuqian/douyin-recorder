@@ -473,6 +473,8 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
             # No break: each danmaku occupies all 10 slots (cascading push-up)
 
 
+    return '\n'.join(lines)
+
 
 def _build_danmaku_srt(seg_dm, seg_duration):
     """Build danmaku SRT: 5s windows, multiple danmaku per entry."""
@@ -504,8 +506,6 @@ def _build_danmaku_srt(seg_dm, seg_duration):
         win_start = win_end
     return "".join(lines)
 
-
-    return '\n'.join(lines)
 
 def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, seg_duration):
     """Generate ASS per segment and remux MP4 → MKV. Returns list of (mkv_path, mkv_fname)."""
