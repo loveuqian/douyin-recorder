@@ -396,7 +396,7 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
         "",
         "[V4+ Styles]",
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-        "Style: Danmaku,Microsoft YaHei,24,"+chr(38)+"H00FFFFFF,"+chr(38)+"H00FFFFFF,"+chr(38)+"H00000000,"+chr(38)+"H00FFFFFF,0,0,0,0,100,100,0,0,1,1,4,1,20,20,150,1",
+        "Style: Danmaku,Microsoft YaHei,24,"+chr(38)+"H00FFFFFF,"+chr(38)+"H00FFFFFF,"+chr(38)+"H80000000,"+chr(38)+"H00000000,0,0,0,0,100,100,0,0,1,2,0,1,20,20,150,1",
         "Style: ViewerCount,Microsoft YaHei,36,"+chr(38)+"H00FFFFFF,"+chr(38)+"H00FFFFFF,"+chr(38)+"H80000000,"+chr(38)+"H00000000,1,0,0,0,100,100,0,0,1,2,0,8,50,50,50,1",
         "",
         "[Events]",
@@ -411,7 +411,7 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
         if e > s:
             lines.append(
                 "Dialogue: 0," + _fmt_ts(s) + "," + _fmt_ts(e) + ",ViewerCount,,0,0,0,,"
-                "{\\an8\\move(960,30,960,30,0,0)\\bord4\\shad2\\1c" + chr(38) + "HFFFFFF" + chr(38) + "\\3c" + chr(38) + "H0000FF" + chr(38) + "\\4c" + chr(38) + "H0000FF" + chr(38) + "}" + str(vp["count"]) + " \u4eba\u5728\u770b"
+                "{\\an8\\move(960,30,960,30,0,0)\\1c" + chr(38) + "HFFFFFF" + chr(38) + "\\3c" + chr(38) + "H0000FF" + chr(38) + "\\bord8\\shad0}" + str(vp["count"]) + " \u4eba\u5728\u770b"
             )
 
     if not seg_dm:
