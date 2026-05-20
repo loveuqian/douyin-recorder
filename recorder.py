@@ -875,7 +875,7 @@ def handle_room_end(rid, recordings, anchor_names, now):
     # Upload meta.json with peak_viewers
     meta_path = os.path.join(OUTPUT_DIR, f"{rid}_meta.json")
     if os.path.exists(meta_path):
-    meta_upload_name = f"{rid}_{start_ts_fmt}_meta.{end_ts_fmt}.json"
+        meta_upload_name = f"{rid}_{start_ts_fmt}_meta.{end_ts_fmt}.json"
         upload_files.append((meta_path, meta_upload_name))
 
     if upload_files:
