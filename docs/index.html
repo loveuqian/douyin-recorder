@@ -249,7 +249,7 @@ function us(s){return decodeURIComponent(Array.prototype.map.call(s,function(c){
 
 function fs(b){if(!b)return '-';if(b<1048576)return(b/1024).toFixed(1)+'K';if(b<1073741824)return(b/1048576).toFixed(1)+'M';return(b/1073741824).toFixed(2)+'G'}
 
-function gt(fn){var f=fn.toLowerCase();if(f.indexOf("_meta.json")>=0)return"m";if(f.endsWith(".mp4")||f.endsWith(".flv")||f.endsWith(".webm")||f.endsWith(".mkv"))return"v";if(f.endsWith(".wav")||f.endsWith(".mp3")||f.endsWith(".aac")||f.endsWith(".ogg"))return"a";if(f.endsWith(".srt"))return"s";return"t"}
+function gt(fn){var f=fn.toLowerCase();if(f.indexOf("_meta.json")>=0)return"m";if(f.endsWith(".mp4")||f.endsWith(".flv")||f.endsWith(".webm")||f.endsWith(".mkv"))return"v";if(f.endsWith(".wav")||f.endsWith(".mp3")||f.endsWith(".aac")||f.endsWith(".ogg"))return"a";if(f.endsWith(".txt"))return"t";if(f.endsWith(".srt"))return"s";return"o"}
 
 function gi(t){return{v:'🎬',a:'🎵',t:'📄',s:'💬',o:'📁'}[t]||'📄'}
 
