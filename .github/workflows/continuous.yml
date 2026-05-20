@@ -1,4 +1,4 @@
-name: 24h�������
+name: 24h监控
 
 on:
   workflow_dispatch:
@@ -21,23 +21,21 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - name: Cache pip/pw
+          cache: pip
+          cache-dependency-path: '**/requirements.txt'
+      - name: Cache Playwright + ML models
         uses: actions/cache@v4
         with:
           path: |
-            ~/.cache/pip
             ~/.cache/ms-playwright
             ~/.cache/torch
             ~/.cache/modelscope
             ~/.cache/huggingface
-          key: deps-v4-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          key: deps-v5-${{ runner.os }}-${{ hashFiles('recorder.py') }}
           restore-keys: |
-            deps-v3-${{ runner.os }}-
-            deps-v3-
-            deps-
-            dep-
-            de
-      - name: Cache apt
+            deps-v5-${{ runner.os }}-
+            deps-v5-
+      - name: Cache apt packages
         uses: actions/cache@v4
         with:
           path: /var/cache/apt/archives
@@ -50,14 +48,11 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg
           python -m pip install --upgrade pip
-          pip install --timeout 120 torch --index-url https://download.pytorch.org/whl/cpu
-          pip install --timeout 120 torchaudio --index-url https://download.pytorch.org/whl/cpu
-          pip install --timeout 120 funasr
-          pip install --timeout 120 requests
-          pip install --timeout 120 playwright
+          pip install --timeout 60 torch torchaudio --index-url https://download.pytorch.org/whl/cpu
+          pip install --timeout 60 funasr requests playwright
           mkdir -p /tmp/recordings /tmp/transcripts
       - name: Install Playwright browsers
-        run: python -m playwright install chromium
+        run: python -m playwright install chromium --with-deps
         env:
           PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
       - name: Show TH time
@@ -68,15 +63,8 @@ jobs:
         run: |
           sudo locale-gen en_US.UTF-8 || true
           sudo update-locale LANG=en_US.UTF-8 || true
-          echo LANG=en_US.UTF-8 >> "${GITHUB_ENV}"
-          echo LC_ALL=en_US.UTF-8 >> "${GITHUB_ENV}"
-      - name: Debug curl
-        run: |
-          curl -s -L --max-time 25 -H 'User-Agent: Mozilla/5.0' -H 'Accept: text/html' 'https://live.douyin.com/673814862790' -o /tmp/curl_debug.html
-          echo 'Curl exit:' $?
-          head -c 300 /tmp/curl_debug.html
-          echo ''
-          wc -c /tmp/curl_debug.html
+          echo LANG=en_US.UTF-8 >> "$GITHUB_ENV"
+          echo LC_ALL=en_US.UTF-8 >> "$GITHUB_ENV"
       - name: Run recorder
         run: python recorder.py
         env:
@@ -102,9 +90,9 @@ jobs:
           EXISTING=$(curl -s -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/actions/workflows/continuous.yml/runs?per_page=5&status=in_progress")
-          IN_PROGRESS=$(echo "${EXISTING}" | python3 -c "import sys,json; runs=json.load(sys.stdin).get(\"workflow_runs\",[]); current=\"${{ github.run_number }}\"; other=[r[\"run_number\"] for r in runs if str(r[\"run_number\"])!=current]; print(len(other))" 2>/dev/null || echo "0")
-          if [ "${IN_PROGRESS}" -gt "0" ]; then
-            echo "Skipped: ${IN_PROGRESS} other in-progress run(s) exist"
+          IN_PROGRESS=$(echo "$EXISTING" | python3 -c "import sys,json; runs=json.load(sys.stdin).get('workflow_runs',[]); current='${{ github.run_number }}'; other=[r['run_number'] for r in runs if str(r['run_number'])!=current]; print(len(other))" 2>/dev/null || echo "0")
+          if [ "$IN_PROGRESS" -gt "0" ]; then
+            echo "Skipped: $IN_PROGRESS other in-progress run(s) exist"
           else
             curl -s -X POST "https://api.github.com/repos/${{ github.repository }}/actions/workflows/continuous.yml/dispatches" \
               -H "Accept: application/vnd.github+json" \
