@@ -134,8 +134,8 @@ class DanmakuCollector:
             pw_context = sync_playwright()
             p = pw_context.__enter__()
             browser = p.chromium.launch(
-                headless=True,
-                args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
+                headless=False,
+                args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage", "--headless=new"]
             )
             page = browser.new_page(
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
