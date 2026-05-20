@@ -307,7 +307,13 @@ function pfn(n){
 
   // 5) roomid_start
 
-  m=pre.match(/^(\d+)_(\d{8}_\d{6})$/);
+  m=pre.match(/^\d+_\d{8}_\d{6}$/);
+
+  if(m)return{id:m[0].split('_')[0],s:m[0].split('_')[1],e:null};
+
+  // 5b) roomid_start_meta (meta.json has _meta suffix before ext)
+
+  m=pre.match(/^(\d+)_(\d{8}_\d{6})_meta$/);
 
   if(m)return{id:m[1],s:m[2],e:null};
 
