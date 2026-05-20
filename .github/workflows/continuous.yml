@@ -66,6 +66,7 @@ jobs:
           CHECK_INTERVAL: 60
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN_ROOMS: ${{ secrets.GITHUB_TOKEN }}
           GH_RUN_ID: ${{ github.run_id }}
           GH_RUN_NUMBER: ${{ github.run_number }}
           DOUYIN_COOKIE: ${{ secrets.DOUYIN_COOKIE }}
