@@ -22,24 +22,31 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - name: Cache
+          cache: pip
+          cache-dependency-path: '**/requirements.txt'
+      - name: Cache ML models
         uses: actions/cache@v4
         with:
           path: |
-            /home/runner/.cache/pip
-            /home/runner/.cache/torch
-            /home/runner/.cache/modelscope
-            /home/runner/.cache/huggingface
+            ~/.cache/torch
+            ~/.cache/modelscope
+            ~/.cache/huggingface
           key: transcribe-v3-${{ runner.os }}
+      - name: Cache apt
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          key: apt-ffmpeg-${{ runner.os }}
+          restore-keys: |
+            apt-ffmpeg-${{ runner.os }}-
+            apt-ffmpeg-
       - name: Install deps
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg
           python -m pip install --upgrade pip
-          pip install --timeout 120 torch --index-url https://download.pytorch.org/whl/cpu
-          pip install --timeout 120 torchaudio --index-url https://download.pytorch.org/whl/cpu
-          pip install --timeout 120 funasr
-          pip install --timeout 120 requests
+          pip install --timeout 60 --force-reinstall torch torchaudio --index-url https://download.pytorch.org/whl/cpu
+          pip install --timeout 60 funasr requests
       - name: Transcribe all untranscribed audio
         run: python transcribe_release.py
         env:
