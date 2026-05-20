@@ -46,12 +46,10 @@ jobs:
           sudo apt-get install -y ffmpeg
           python -m pip install --upgrade pip
           pip install --timeout 60 torch torchaudio --index-url https://download.pytorch.org/whl/cpu
-          pip install --timeout 60 funasr requests playwright
+          pip install --timeout 60 --force-reinstall funasr requests playwright
           mkdir -p /tmp/recordings /tmp/transcripts
       - name: Install Playwright browsers
-        run: python -m playwright install chromium
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
+        run: python -m playwright install chromium --with-deps
       - name: Show TH time
         run: |
           echo 'GitHub UTC: ' $(date -u '+%Y-%m-%d %H:%M:%S')
