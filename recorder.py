@@ -472,40 +472,7 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
             )
             # No break: each danmaku occupies all 10 slots (cascading push-up)
 
-
     return '\n'.join(lines)
-
-
-def _build_danmaku_srt(seg_dm, seg_duration):
-    """Build danmaku SRT: 5s windows, multiple danmaku per entry."""
-    WINDOW = 5.0
-    lines = []
-    idx = 1
-    win_start = 0.0
-    while win_start < seg_duration:
-        win_end = min(win_start + WINDOW, seg_duration)
-        texts = []
-        for dp in seg_dm:
-            t = dp.get("_offset", dp.get("offset", 0))
-            if win_start <= t < win_end:
-                txt = (dp.get("text", "") or "")[:60]
-                if txt.strip():
-                    texts.append(txt)
-        if texts:
-            st = int(win_start)
-            et = int(win_end)
-            lines.append(
-                str(idx) + "\n" +
-                "%02d:%02d:%02d,%03d --> %02d:%02d:%02d,%03d" % (
-                    st // 3600, (st % 3600) // 60, st % 60, 0,
-                    et // 3600, (et % 3600) // 60, et % 60, 0
-                ) + "\n" +
-                "\n".join(texts) + "\n\n"
-            )
-            idx += 1
-        win_start = win_end
-    return "".join(lines)
-
 
 def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, seg_duration):
     """Generate ASS per segment and remux MP4 → MKV. Returns list of (mkv_path, mkv_fname)."""
@@ -557,15 +524,6 @@ def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, se
         with open(ass_path, "w", encoding="utf-8") as f:
             f.write(ass_content)
 
-        srt_content = _build_danmaku_srt(seg_dm, seg_duration)
-        if srt_content.strip():
-            # Name SRT to match segment filename: base_seq.danmaku.srt
-            seg_basename = os.path.basename(seg_fname)
-            srt_name = seg_basename[:-4] + ".danmaku.srt"
-            srt_path = os.path.join(output_dir, srt_name)
-            with open(srt_path, "w", encoding="utf-8") as f:
-                f.write(srt_content)
-
         mkv_path = seg_path.replace(".mp4", ".mkv")
         cmd = [FFMPEG, "-y", "-hide_banner",
                "-i", seg_path,
@@ -579,9 +537,6 @@ def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, se
             mkv_size = os.path.getsize(mkv_path)
             mkv_name = os.path.basename(mkv_path)
             mkv_results.append((mkv_path, mkv_name))
-            srt_path = os.path.join(output_dir, srt_name)
-            if os.path.exists(srt_path):
-                mkv_results.append((srt_path, srt_name))
             log(f"[ASS] {anchor_name} seg{seq_idx} → MKV ({len(seg_dm)} dm, {mkv_size/1024/1024:.1f}MB)")
         else:
             log(f"[ASS] {anchor_name} seg{seq_idx} remux FAILED")
@@ -765,7 +720,7 @@ def start_recording(url, quality, room_id, anchor_name=""):
     outfile_pattern = os.path.join(OUTPUT_DIR, f"{base}_%03d.mp4")
     audiofile = os.path.join(OUTPUT_DIR, f"{base}.wav")
 
-    with open(os.path.join(OUTPUT_DIR, f"{base}_meta.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUTPUT_DIR, f"{room_id}_meta.json"), "w", encoding="utf-8") as f:
         json.dump({"room_id": room_id, "anchor_name": anchor_name,
                    "filename_base": base, "audio": f"{base}.wav",
                    "quality": quality, "seg_duration": seg_duration}, f)
@@ -879,6 +834,32 @@ def handle_room_end(rid, recordings, anchor_names, now):
         for mkv_path, mkv_name in mkv_files:
             upload_files.append((mkv_path, mkv_name))
 
+    # Generate a single danmaku SRT for the entire recording
+    global_data_path = os.path.join(OUTPUT_DIR, f"page_data_{rid}.json")
+    if os.path.exists(global_data_path):
+        try:
+            with open(global_data_path, "r", encoding="utf-8") as f:
+                global_data = json.load(f)
+            all_dm = global_data.get("danmaku", [])
+            if all_dm:
+                total_duration = now - rec_start
+                dm_with_offset = []
+                for dp in all_dm:
+                    wt = dp.get("wall_ts", dp.get("offset", 0))
+                    off = max(0, wt - rec_start)
+                    dm_with_offset.append({**dp, "_offset": off})
+                dm_with_offset.sort(key=lambda x: x["_offset"])
+                srt_content = _build_danmaku_srt(dm_with_offset, total_duration)
+                if srt_content.strip():
+                    dm_srt_basename = os.path.basename(base_prefix) + ".danmaku.srt"
+                    dm_srt_path = os.path.join(OUTPUT_DIR, dm_srt_basename)
+                    with open(dm_srt_path, "w", encoding="utf-8") as f:
+                        f.write(srt_content)
+                    upload_files.append((dm_srt_path, dm_srt_basename))
+                    log(f"[SRT] Global danmaku SRT: {dm_srt_basename} ({len(all_dm)} dm)")
+        except Exception as e:
+            log(f"[SRT] Error generating danmaku SRT: {e}")
+
     # Upload meta.json with peak_viewers
     meta_path = os.path.join(OUTPUT_DIR, f"{rid}_meta.json")
     if os.path.exists(meta_path):
@@ -917,7 +898,6 @@ def check_renew(elapsed):
 
 
 def run():
-    global _iter_watchdog
     rooms = load_rooms_from_github()
     if not rooms:
         rooms = load_rooms()
@@ -1282,3 +1262,35 @@ if __name__ == "__main__":
         fallback_upload()
     else:
         run()
+def _build_danmaku_srt(seg_dm, seg_duration):
+    """Build danmaku SRT: 5s windows, multiple danmaku per entry (plan A)."""
+    WINDOW = 5.0
+    lines = []
+    idx = 1
+    win_start = 0.0
+    while win_start < seg_duration:
+        win_end = min(win_start + WINDOW, seg_duration)
+        texts = []
+        for dp in seg_dm:
+            t = dp.get("_offset", dp.get("offset", 0))
+            if win_start <= t < win_end:
+                txt = (dp.get("text", "") or "")[:60]
+                if txt.strip():
+                    texts.append(txt)
+        if texts:
+            st = int(win_start)
+            et = int(win_end)
+            lines.append(
+                str(idx) + "\n" +
+                "%02d:%02d:%02d,%03d --> %02d:%02d:%02d,%03d" % (
+                    st // 3600, (st % 3600) // 60, st % 60, 0,
+                    et // 3600, (et % 3600) // 60, et % 60, 0
+                ) + "\n" +
+                "\n".join(texts) + "\n\n"
+            )
+            idx += 1
+        win_start = win_end
+    return "".join(lines)
+
+
+
