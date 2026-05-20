@@ -261,6 +261,10 @@ function fl(d){return new Date(d).toLocaleString([],{month:'2-digit',day:'2-digi
 
 function pfn(n){
 
+  // Handle .danmaku.srt: strip suffix, keep base for room matching
+  var di=n.indexOf('.danmaku.');
+  if(di>0)return pfn(n.substring(0,di));
+
   var parts=n.split('.');
 
   if(!parts[0])return null;
@@ -306,6 +310,10 @@ function pfn(n){
   m=pre.match(/^(\d+)_(\d{8}_\d{6})$/);
 
   if(m)return{id:m[1],s:m[2],e:null};
+
+  // Fallback: roomid-only prefix (for danmaku.srt or unknown patterns)
+  var mid=n.match(/^(\d+)/);
+  if(mid)return{id:mid[1],s:null,e:null};
 
   return null;
 
