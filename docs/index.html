@@ -251,9 +251,9 @@ function fs(b){if(!b)return '-';if(b<1048576)return(b/1024).toFixed(1)+'K';if(b<
 
 function gt(fn){var f=fn.toLowerCase();if(f.indexOf("_meta.json")>=0)return"m";if(f.endsWith(".mp4")||f.endsWith(".flv")||f.endsWith(".webm")||f.endsWith(".mkv"))return"v";if(f.endsWith(".wav")||f.endsWith(".mp3")||f.endsWith(".aac")||f.endsWith(".ogg"))return"a";if(f.endsWith(".srt"))return"s";return"t"}
 
-function gi(t){return{v:'🎬',a:'🎵',t:'📄',s:'💬'}[t]||'📄'}
+function gi(t){return{v:'🎬',a:'🎵',t:'📄',s:'💬',o:'📁'}[t]||'📄'}
 
-function gl(t){return{v:'视频',a:'音频',t:'文字',s:'SRT'}[t]||''}
+function gl(t){return{v:'视频',a:'音频',t:'文字',s:'SRT',o:'其他'}[t]||''}
 
 function eh(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
@@ -553,13 +553,13 @@ function od(an,pi){
 
   document.getElementById('dt').textContent=p.an+' 的录制包';
 
-  var gr={v:[],a:[],t:[],s:[]};
+  var gr={v:[],a:[],t:[],s:[],o:[]};
 
   p.it.forEach(function(a){if(gr[a.ty])gr[a.ty].push(a);else gr.t.push(a)});
 
   var h='<div style="margin-bottom:16px;font-weight:600">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';
 
-  ['v','a','t','s'].forEach(function(t){
+  ['v','a','t','s','o'].forEach(function(t){
 
     if(!gr[t].length)return;
 
