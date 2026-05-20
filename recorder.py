@@ -524,6 +524,12 @@ def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, se
         with open(ass_path, "w", encoding="utf-8") as f:
             f.write(ass_content)
 
+        srt_content = _build_danmaku_srt(seg_dm, seg_duration)
+        if srt_content.strip():
+            srt_path = os.path.join(output_dir, f"{room_id}_{seq_idx:03d}.danmaku.srt")
+            with open(srt_path, "w", encoding="utf-8") as f:
+                f.write(srt_content)
+
         mkv_path = seg_path.replace(".mp4", ".mkv")
         cmd = [FFMPEG, "-y", "-hide_banner",
                "-i", seg_path,
@@ -537,6 +543,9 @@ def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, se
             mkv_size = os.path.getsize(mkv_path)
             mkv_name = os.path.basename(mkv_path)
             mkv_results.append((mkv_path, mkv_name))
+            srt_path = os.path.join(output_dir, f"{room_id}_{seq_idx:03d}.danmaku.srt")
+            if os.path.exists(srt_path):
+                mkv_results.append((srt_path, f"{room_id}_{seq_idx:03d}.danmaku.srt"))
             log(f"[ASS] {anchor_name} seg{seq_idx} → MKV ({len(seg_dm)} dm, {mkv_size/1024/1024:.1f}MB)")
         else:
             log(f"[ASS] {anchor_name} seg{seq_idx} remux FAILED")
@@ -1236,3 +1245,35 @@ if __name__ == "__main__":
         fallback_upload()
     else:
         run()
+def _build_danmaku_srt(seg_dm, seg_duration):
+    """Build danmaku SRT: 5s windows, multiple danmaku per entry (plan A)."""
+    WINDOW = 5.0
+    lines = []
+    idx = 1
+    win_start = 0.0
+    while win_start < seg_duration:
+        win_end = min(win_start + WINDOW, seg_duration)
+        texts = []
+        for dp in seg_dm:
+            t = dp.get("_offset", dp.get("offset", 0))
+            if win_start <= t < win_end:
+                txt = (dp.get("text", "") or "")[:60]
+                if txt.strip():
+                    texts.append(txt)
+        if texts:
+            st = int(win_start)
+            et = int(win_end)
+            lines.append(
+                str(idx) + "\n" +
+                "%02d:%02d:%02d,%03d --> %02d:%02d:%02d,%03d" % (
+                    st // 3600, (st % 3600) // 60, st % 60, 0,
+                    et // 3600, (et % 3600) // 60, et % 60, 0
+                ) + "\n" +
+                "\n".join(texts) + "\n\n"
+            )
+            idx += 1
+        win_start = win_end
+    return "".join(lines)
+
+
+
