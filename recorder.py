@@ -801,6 +801,11 @@ def handle_room_end(rid, recordings, anchor_names, now):
         for mkv_path, mkv_name in mkv_files:
             upload_files.append((mkv_path, mkv_name))
 
+    # Upload meta.json with peak_viewers
+    meta_path = os.path.join(OUTPUT_DIR, f"{rid}_meta.json")
+    if os.path.exists(meta_path):
+        upload_files.append((meta_path, f"{rid}_meta.json"))
+
     if upload_files:
         log(f"[{aname}] Recording ended, enqueuing {len(upload_files)} file(s) for upload")
 
