@@ -21,7 +21,8 @@ if input_filename:
             upload_url = rel.get('upload_url', '')
             for a in rel.get('assets', []):
                 if a['name'] == input_filename:
-                    release_jobs.append((a, upload_url))
+                    existing_names = {aa['name'] for aa in rel.get('assets', [])}
+                    release_jobs.append((a, upload_url, existing_names))
                     break
         page += 1
 else:
