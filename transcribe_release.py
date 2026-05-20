@@ -111,28 +111,34 @@ for asset, upload_url_template in release_jobs:
             print('  No transcription text for %s' % name)
             continue
 
-        # Upload TXT
+        # Upload TXT (skip if already exists)
         txt_name = base + '.txt'
-        txt_text = '\n'.join(text_lines)
-        upload_url = upload_url_template.replace('{?name,label}', '?name=' + urllib.parse.quote(txt_name))
-        req = urllib.request.Request(upload_url,
-            data=txt_text.encode('utf-8'),
-            headers=dict(gh, **{'Content-Type': 'text/plain; charset=utf-8'}),
-            method='POST')
-        urllib.request.urlopen(req, timeout=120)
-        print('  Uploaded: %s' % txt_name)
+        if txt_name not in existing_names:
+            txt_text = '\n'.join(text_lines)
+            upload_url = upload_url_template.replace('{?name,label}', '?name=' + urllib.parse.quote(txt_name))
+            req = urllib.request.Request(upload_url,
+                data=txt_text.encode('utf-8'),
+                headers=dict(gh, **{'Content-Type': 'text/plain; charset=utf-8'}),
+                method='POST')
+            urllib.request.urlopen(req, timeout=120)
+            print('  Uploaded: %s' % txt_name)
+        else:
+            print('  Skipping %s (already exists)' % txt_name)
 
         # Upload SRT if we have timestamps
         if srt_lines:
             srt_name = base + '.srt'
-            srt_text = ''.join(srt_lines)
-            upload_url2 = upload_url_template.replace('{?name,label}', '?name=' + urllib.parse.quote(srt_name))
-            req2 = urllib.request.Request(upload_url2,
-                data=srt_text.encode('utf-8'),
-                headers=dict(gh, **{'Content-Type': 'text/plain; charset=utf-8'}),
-                method='POST')
-            urllib.request.urlopen(req2, timeout=120)
-            print('  Uploaded: %s' % srt_name)
+            if srt_name not in existing_names:
+                srt_text = ''.join(srt_lines)
+                upload_url2 = upload_url_template.replace('{?name,label}', '?name=' + urllib.parse.quote(srt_name))
+                req2 = urllib.request.Request(upload_url2,
+                    data=srt_text.encode('utf-8'),
+                    headers=dict(gh, **{'Content-Type': 'text/plain; charset=utf-8'}),
+                    method='POST')
+                urllib.request.urlopen(req2, timeout=120)
+                print('  Uploaded: %s' % srt_name)
+            else:
+                print('  Skipping %s (already exists)' % srt_name)
 
         print('Transcription complete')
     except Exception as e:
