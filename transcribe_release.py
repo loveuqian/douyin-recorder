@@ -22,7 +22,7 @@ while True:
             if not name.endswith('.wav'):
                 continue
             base = name.rsplit('.', 1)[0]
-            if (base + '.txt' not in existing_names) and (base + '.srt' not in existing_names):
+                        if base + '.srt' not in existing_names:
                 release_jobs.append((a, upload_url))
     page += 1
 
