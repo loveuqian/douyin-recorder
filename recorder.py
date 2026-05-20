@@ -136,13 +136,24 @@ class DanmakuCollector:
             p = pw_context.__enter__()
             browser = p.chromium.launch(
                 headless=False,
-                args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage", "--headless=new"]
+                args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage", "--headless=new",
+                      "--disable-blink-features=AutomationControlled",
+                      "--window-size=1280,720"]
             )
             page = browser.new_page(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
-                viewport={"width": 1280, "height": 720}
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0.0.0 Safari/537.36",
+                viewport={"width": 1280, "height": 720},
+                locale="zh-CN",
+                extra_http_headers={"Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"}
             )
-            page.goto(f"https://live.douyin.com/{self.room_id}", wait_until="domcontentloaded", timeout=15000)
+            # Stealth: hide automation flags
+            try:
+                page.add_init_script('''Object.defineProperty(navigator,"webdriver",{get:()=>undefined});Object.defineProperty(navigator,"plugins",{get:()=>[1,2,3,4,5]});window.chrome={runtime:{}};''')
+            except: pass
+            # Navigate with longer timeout
+            page.goto(f"https://live.douyin.com/{self.room_id}", wait_until="domcontentloaded", timeout=30000)
+            # Wait longer for page to settle
+            time.sleep(2.0)
             # Debug: log page info
             try:
                 _pt = page.title()
@@ -152,7 +163,7 @@ class DanmakuCollector:
                 pass
             # Quick check for SSR content
             try:
-                page.wait_for_selector("[class*=live-main]", timeout=3000)
+                page.wait_for_selector("[class*=live-main]", timeout=5000)
             except:
                 log(f"[PW] {self.anchor_name} SSR not found (page may be blocked)")
             # Brief wait for hydration
