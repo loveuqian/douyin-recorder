@@ -19,6 +19,7 @@ MAX_DURATION = int(os.environ.get("MAX_DURATION", str(5 * 3600)))
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "/tmp/recordings")
 GH_REPO = os.environ.get("GH_REPO", "")
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
+GH_TOKEN_ROOMS = os.environ.get("GH_TOKEN_ROOMS", "")
 GH_RUN_ID = os.environ.get("GH_RUN_ID", "0")
 GH_RUN_NUMBER = os.environ.get("GH_RUN_NUMBER", "0")
 _renew_triggered = False
@@ -645,11 +646,11 @@ def load_rooms():
 
 def load_rooms_from_github():
     try:
-        if not GH_REPO or not GH_TOKEN:
+        if not GH_REPO or not GH_TOKEN_ROOMS:
             return []
         req = urllib.request.Request(
             f"https://api.github.com/repos/{GH_REPO}/contents/{ROOMS_FILE}",
-            headers={"Authorization": f"Bearer {GH_TOKEN}", "Accept": "application/vnd.github+json"})
+            headers={"Authorization": f"Bearer {GH_TOKEN_ROOMS}", "Accept": "application/vnd.github+json"})
         resp = urllib.request.urlopen(req, timeout=URLLIB_TIMEOUT)
         data = json.loads(resp.read().decode())
         content = base64.b64decode(data["content"]).decode("utf-8")
@@ -671,12 +672,12 @@ def load_rooms_from_github():
 
 
 def update_rooms_nickname(anchor_names):
-    if not GH_TOKEN or not GH_REPO:
+    if not GH_TOKEN_ROOMS or not GH_REPO:
         return
     try:
         req = urllib.request.Request(
             f"https://api.github.com/repos/{GH_REPO}/contents/{ROOMS_FILE}",
-            headers={"Authorization": f"Bearer {GH_TOKEN}", "Accept": "application/vnd.github+json"})
+            headers={"Authorization": f"Bearer {GH_TOKEN_ROOMS}", "Accept": "application/vnd.github+json"})
         data = json.loads(urllib.request.urlopen(req, timeout=URLLIB_TIMEOUT).read())
         sha = data["sha"]
         content = base64.b64decode(data["content"]).decode("utf-8")
@@ -703,7 +704,7 @@ def update_rooms_nickname(anchor_names):
             data=json.dumps({"message": "update nicknames",
                              "content": base64.b64encode(new_content.encode()).decode(),
                              "sha": sha}).encode(),
-            headers={"Authorization": f"Bearer {GH_TOKEN}", "Content-Type": "application/json"},
+            headers={"Authorization": f"Bearer {GH_TOKEN_ROOMS}", "Content-Type": "application/json"},
             method="PUT")
         urllib.request.urlopen(put, timeout=URLLIB_TIMEOUT)
         log("rooms.txt nicknames updated via GitHub API")
@@ -968,7 +969,7 @@ def run():
                 log(f"Time limit ({elapsed/3600:.1f}h), exiting")
                 break
 
-            # Refresh rooms from GitHub
+            # Refresh rooms from GitHub (uses GH_TOKEN_ROOMS)
             if now - last_refresh > 30:
                 new_rooms = load_rooms_from_github()
                 for nr in new_rooms:
@@ -1065,7 +1066,7 @@ def run():
             if int(elapsed / 60) != int((elapsed - CHECK_INTERVAL) / 60):
                 log(f'[heartbeat] running {int(elapsed/60)}min, rooms={len(prev_live)}')
 
-            if int(elapsed / 60) != int((elapsed - CHECK_INTERVAL - 1) / 60):
+            if int(elapsed / 300) != int((elapsed - 299) / 300):
                 try:
                     status_data = {}
                     now_ts = int(time.time())
@@ -1185,7 +1186,7 @@ def _wait_uploads():
 
 
 def _write_status_json(status_data):
-    if not GH_REPO or not GH_TOKEN:
+    if not GH_REPO or not GH_TOKEN_ROOMS:
         return
     path = 'docs/live_status.json'
     body = json.dumps(status_data, ensure_ascii=False, indent=2)
@@ -1194,7 +1195,7 @@ def _write_status_json(status_data):
         try:
             req = urllib.request.Request(
                 f'https://api.github.com/repos/{GH_REPO}/contents/{path}',
-                headers={'Authorization': f'Bearer {GH_TOKEN}', 'Accept': 'application/vnd.github+json'})
+                headers={'Authorization': f'Bearer {GH_TOKEN_ROOMS}', 'Accept': 'application/vnd.github+json'})
             try:
                 resp = urllib.request.urlopen(req, timeout=15)
                 sha = json.loads(resp.read().decode())['sha']
@@ -1216,7 +1217,7 @@ def _write_status_json(status_data):
             put_req = urllib.request.Request(
                 f'https://api.github.com/repos/{GH_REPO}/contents/{path}',
                 data=put_data,
-                headers={'Authorization': f'Bearer {GH_TOKEN}', 'Content-Type': 'application/json'},
+                headers={'Authorization': f'Bearer {GH_TOKEN_ROOMS}', 'Content-Type': 'application/json'},
                 method='PUT')
             urllib.request.urlopen(put_req, timeout=30)
             return
