@@ -96,15 +96,33 @@ for asset, upload_url_template, existing_names in release_jobs:
                                             seg_txt = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', seg_txt_raw).strip()
                                             if not seg_txt:
                                                 continue
-                                            st_ms += seg_offset * 1000
-                                            et_ms += seg_offset * 1000
-                                            st_s = st_ms // 1000
-                                            st_fmt = '%02d:%02d:%02d,%03d' % (st_s // 3600, (st_s % 3600) // 60, st_s % 60, st_ms % 1000)
-                                            et_s = et_ms // 1000
-                                            et_fmt = '%02d:%02d:%02d,%03d' % (et_s // 3600, (et_s % 3600) // 60, et_s % 60, et_ms % 1000)
-                                            srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, seg_txt))
-                                            srt_idx += 1
-                                            srt_idx += 1
+                                            seg_dur = (et_ms - st_ms) / 1000.0
+                                            seg_chars = len(seg_txt)
+                                            # Sub-split long segments into ~3s chunks
+                                            if seg_dur > 5.0 and seg_chars > 0:
+                                                target_dur = min(seg_dur, 3.0)
+                                                sub_chars = max(1, int(seg_chars * target_dur / seg_dur))
+                                                for kk in range(0, seg_chars, sub_chars):
+                                                    sub_txt = seg_txt[kk:kk+sub_chars]
+                                                    frac_start = kk / seg_chars
+                                                    frac_end = (kk + len(sub_txt)) / seg_chars
+                                                    sub_st = int(st_ms + frac_start * (et_ms - st_ms))
+                                                    sub_et = int(st_ms + frac_end * (et_ms - st_ms))
+                                                    if sub_et <= sub_st:
+                                                        sub_et = sub_st + 500
+                                                    st_s = sub_st // 1000
+                                                    st_fmt = '%02d:%02d:%02d,%03d' % (st_s // 3600, (st_s % 3600) // 60, st_s % 60, sub_st % 1000)
+                                                    et_s = sub_et // 1000
+                                                    et_fmt = '%02d:%02d:%02d,%03d' % (et_s // 3600, (et_s % 3600) // 60, et_s % 60, sub_et % 1000)
+                                                    srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, sub_txt))
+                                                    srt_idx += 1
+                                            else:
+                                                st_s = st_ms // 1000
+                                                st_fmt = '%02d:%02d:%02d,%03d' % (st_s // 3600, (st_s % 3600) // 60, st_s % 60, st_ms % 1000)
+                                                et_s = et_ms // 1000
+                                                et_fmt = '%02d:%02d:%02d,%03d' % (et_s // 3600, (et_s % 3600) // 60, et_s % 60, et_ms % 1000)
+                                                srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, seg_txt))
+                                                srt_idx += 1
                             else:
                                 if txt:
                                     txt_len = len(txt)
