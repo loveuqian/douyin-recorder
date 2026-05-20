@@ -244,22 +244,390 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif(mu){if(typeof mu==='obj
 var R = 'tangwei880620-rgb/douyin-recorder', A = 'https://api.github.com', T = 'ghp_tMiOuO6Ankr' + 'PemPZiOmm908eIww65j0Xmlp7';
 
 var as = [], rs = [], rm = [], pk = [];
+function rp(mt){
 
-function us(s){return decodeURIComponent(Array.prototype.map.call(s,function(c){return '%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)}).join(''))}
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
 
-function fs(b){if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(!b)return '-';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(b<1048576)return(b/1024).toFixed(1)+'K';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(b<1073741824)return(b/1048576).toFixed(1)+'M';return(b/1073741824).toFixed(2)+'G'}
+  var f=pk.filter(function(p){
 
-function gt(fn){var f=fn.toLowerCase();if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.indexOf("_meta.json")>=0||(f.indexOf("_meta.")>=0&&f.endsWith(".json")))return"m";if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.endsWith(".mp4")||f.endsWith(".flv")||f.endsWith(".webm")||f.endsWith(".mkv"))return"v";if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.endsWith(".wav")||f.endsWith(".mp3")||f.endsWith(".aac")||f.endsWith(".ogg"))return"a";if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.endsWith(".txt"))return"t";if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.endsWith(".srt"))return"s";return"o"}
+    if(af!='all'&&p.an!=af)return false;
 
-function gi(t){return{v:'🎬',a:'🎵',t:'📄',s:'💬',o:'📁'}[t]||'📄'}
+    if(df!='all'&&p.dk!=df)return false;
 
-function gl(t){return{v:'视频',a:'音频',t:'文字',s:'SRT',o:'其他'}[t]||''}
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
 
-function eh(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+    return true;
 
-function fl(d){return new Date(d).toLocaleString([],{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}
+  });
 
-function pfn(n){
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction us(s){return decodeURIComponent(Array.prototype.map.call(s,function(c){return '%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)}).join(''))}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction fs(b){if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(!b)return '-';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(b<1048576)return(b/1024).toFixed(1)+'K';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(b<1073741824)return(b/1048576).toFixed(1)+'M';return(b/1073741824).toFixed(2)+'G'}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction gt(fn){var f=fn.toLowerCase();if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.indexOf("_meta.json")>=0||(f.indexOf("_meta.")>=0&&f.endsWith(".json")))return"m";if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.endsWith(".mp4")||f.endsWith(".flv")||f.endsWith(".webm")||f.endsWith(".mkv"))return"v";if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.endsWith(".wav")||f.endsWith(".mp3")||f.endsWith(".aac")||f.endsWith(".ogg"))return"a";if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.endsWith(".txt"))return"t";if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(f.endsWith(".srt"))return"s";return"o"}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction gi(t){return{v:'🎬',a:'🎵',t:'📄',s:'💬',o:'📁'}[t]||'📄'}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction gl(t){return{v:'视频',a:'音频',t:'文字',s:'SRT',o:'其他'}[t]||''}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction eh(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction fl(d){return new Date(d).toLocaleString([],{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction pfn(n){
 
   // Handle .danmaku.srt: strip suffix, keep base for room matching
   var di=n.indexOf('.danmaku.');
@@ -324,12 +692,150 @@ function pfn(n){
   return null;
 
 }
+function rp(mt){
 
-function ts(d){return new Date(d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8)+'T'+d.slice(9,11)+':'+d.slice(11,13)+':'+d.slice(13,15)+'Z')}
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
 
-function ft(s,e){var a=fl(ts(s));return e?a+' ~ '+fl(ts(e)):a}
+  var f=pk.filter(function(p){
 
-function gb(i){if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(rm)for(var j=0;j<rm.length;j++)if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(rm[j].id===i)return rm[j].name;return null}
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction ts(d){return new Date(d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8)+'T'+d.slice(9,11)+':'+d.slice(11,13)+':'+d.slice(13,15)+'Z')}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction ft(s,e){var a=fl(ts(s));return e?a+' ~ '+fl(ts(e)):a}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction gb(i){if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(rm)for(var j=0;j<rm.length;j++)if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(rm[j].id===i)return rm[j].name;return null}
 
 async function lo(){
 
@@ -388,8 +894,54 @@ async function lo(){
   }catch(e){document.getElementById('ct').innerHTML='<div class="empty-state"><p>Error: '+eh(e.message)+'</p></div>'}
 
 }
+function rp(mt){
 
-function bp(mt){
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction bp(mt){
 
   var g={};
 
@@ -458,8 +1010,54 @@ function bp(mt){
   pf();rp(mt);
 
 }
+function rp(mt){
 
-function pf(){
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction pf(){
 
   var as2={};pk.forEach(function(p){as2[p.an]=true});
 
@@ -482,7 +1080,100 @@ function pf(){
   document.getElementById('sa').textContent=Object.keys(as3).length;
 
 }
+function rp(mt){
 
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
 function rp(mt){
 
   var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
@@ -530,8 +1221,7 @@ function rp(mt){
   document.getElementById('sp').textContent=f.length+'/'+pk.length;
 
 }
-
-function pkPeakHtml(p){
+unction pkPeakHtml(p){
   var mi=p.it.find(function(a){return a.ty=="m"});
   if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(!mi)return "";
   var el=document.createElement("span");
@@ -545,8 +1235,54 @@ function pkPeakHtml(p){
   }).catch(function(){el.remove()});
   return el.outerHTML;
 }
+function rp(mt){
 
-function od(an,pi){
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction od(an,pi){
 
   var p=null;
 
@@ -589,10 +1325,102 @@ function od(an,pi){
   document.getElementById('dm').classList.add('show');
 
 }
+function rp(mt){
 
-function cls(id){document.getElementById(id).classList.remove('show')}
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
 
-function de(id){
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction cls(id){document.getElementById(id).classList.remove('show')}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction de(id){
 
   if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(!confirm('&#x786E;&#x5B9A;&#x5220;&#x9664;?'))return;
 
@@ -603,10 +1431,102 @@ function de(id){
   }).catch(function(){st('&#x274C; err')});
 
 }
+function rp(mt){
 
-function st(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
 
-function sw(t){
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction st(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
+function rp(mt){
+
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction sw(t){
 
   document.getElementById('tb1').className='tab-btn'+(t=='browse'?' active':'');
 
@@ -619,8 +1539,54 @@ function sw(t){
   if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(t=='rooms'){rrb();ud()}
 
 }
+function rp(mt){
 
-function rrb(){
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction rrb(){
 
   var h='';
 
@@ -655,8 +1621,54 @@ function rrb(){
   document.getElementById('rb').innerHTML=h;
 
 }
+function rp(mt){
 
-function ud(){
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction ud(){
 
   if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url);var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}(window._lup)clearInterval(window._lup);
 
@@ -687,8 +1699,54 @@ function ud(){
   },1000);
 
 }
+function rp(mt){
 
-function addRm(){
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction addRm(){
 
   var id=document.getElementById('ni').value.trim(),na=document.getElementById('nn').value.trim();
 
@@ -703,8 +1761,54 @@ function addRm(){
   svRm();
 
 }
+function rp(mt){
 
-function svRm(){
+  var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
+
+  var f=pk.filter(function(p){
+
+    if(af!='all'&&p.an!=af)return false;
+
+    if(df!='all'&&p.dk!=df)return false;
+
+    if(q&&p.an.toLowerCase().indexOf(q)==-1&&(p.ri||'').indexOf(q)==-1)return false;
+
+    return true;
+
+  });
+
+  var el=document.getElementById('ct');
+
+  if(!f.length){el.innerHTML='<div class="empty-state"><p>&#x1F4ED; &#x6CA1;&#x6709;&#x5339;&#x914D;&#x7684;&#x5F55;&#x5236;&#x5305;</p></div>';return}
+
+  var h='<div class="packages-grid">',lastDate='';
+
+  f.forEach(function(p){var pd=p.dk;if(pd!=lastDate){h+='<div style="grid-column:1/-1;font-size:18px;font-weight:700;color:var(--accent2);margin:32px 0 16px;padding:10px 16px;background:var(--surface);border-radius:10px;border-left:4px solid var(--accent3)">\ud83d\udcc5 '+pd.slice(5)+'</div>';lastDate=pd;}
+
+    var ty={};
+
+    p.it.forEach(function(a){ty[a.ty]=(ty[a.ty]||0)+1});
+
+    h+='<div class="pkg-card" onclick="od(\''+p.an+'\','+pk.indexOf(p)+')">';
+
+    var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
+
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){if(typeof mu==='object'&&mu.pv){var _pe=document.getElementById('pk'+(mkk.replace(/[^0-9]/g,'')));if(_pe)_pe.innerHTML='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+
+    h+='</div></div>';
+
+  });
+
+  ;
+
+  el.innerHTML=h;
+
+  document.getElementById('sp').textContent=f.length+'/'+pk.length;
+
+}
+unction svRm(){
 
   var txt=rm.map(function(r){return r.id+'='+r.name}).join('\n');
 
