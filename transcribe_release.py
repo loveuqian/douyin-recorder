@@ -84,7 +84,7 @@ for asset, upload_url_template, existing_names in release_jobs:
                     if isinstance(item, dict):
                         txt = item.get('text', '') or item.get('sentence', '') or ''
                         if txt.strip():
-                            txt = re.sub(r'<\|[^|]+\|>\s*', '', txt).strip()
+                            txt = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', txt).strip()
                             if txt:
                                 text_lines.append(txt)
                             ts = item.get('timestamp', '')
@@ -93,7 +93,7 @@ for asset, upload_url_template, existing_names in release_jobs:
                                     for seg in ts:
                                         if isinstance(seg, list) and len(seg) >= 3:
                                             st_ms, et_ms, seg_txt_raw = int(seg[0]), int(seg[1]), seg[2]
-                                            seg_txt = re.sub(r'<\|[^|]+\|>\s*', '', seg_txt_raw).strip()
+                                            seg_txt = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', seg_txt_raw).strip()
                                             if not seg_txt:
                                                 continue
                                             st_ms += seg_offset * 1000
@@ -105,13 +105,13 @@ for asset, upload_url_template, existing_names in release_jobs:
                                             srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, seg_txt))
                                             srt_idx += 1
                     elif isinstance(item, str) and item.strip():
-                        item = re.sub(r'<\|[^|]+\|>\s*', '', item).strip()
+                        item = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', item).strip()
                         if item:
                             text_lines.append(item)
             elif isinstance(result, dict):
                 txt = result.get('text', '') or result.get('sentence', '') or ''
                 if txt.strip():
-                    txt = re.sub(r'<\|[^|]+\|>\s*', '', txt).strip()
+                    txt = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', txt).strip()
                     if txt:
                         text_lines.append(txt)
                         # Estimate SRT from segment duration (model returned dict, no timestamps)
