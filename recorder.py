@@ -472,6 +472,39 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
             )
             # No break: each danmaku occupies all 10 slots (cascading push-up)
 
+
+
+def _build_danmaku_srt(seg_dm, seg_duration):
+    """Build danmaku SRT: 5s windows, multiple danmaku per entry."""
+    WINDOW = 5.0
+    lines = []
+    idx = 1
+    win_start = 0.0
+    while win_start < seg_duration:
+        win_end = min(win_start + WINDOW, seg_duration)
+        texts = []
+        for dp in seg_dm:
+            t = dp.get("_offset", dp.get("offset", 0))
+            if win_start <= t < win_end:
+                txt = (dp.get("text", "") or "")[:60]
+                if txt.strip():
+                    texts.append(txt)
+        if texts:
+            st = int(win_start)
+            et = int(win_end)
+            lines.append(
+                str(idx) + "\n" +
+                "%02d:%02d:%02d,%03d --> %02d:%02d:%02d,%03d" % (
+                    st // 3600, (st % 3600) // 60, st % 60, 0,
+                    et // 3600, (et % 3600) // 60, et % 60, 0
+                ) + "\n" +
+                "\n".join(texts) + "\n\n"
+            )
+            idx += 1
+        win_start = win_end
+    return "".join(lines)
+
+
     return '\n'.join(lines)
 
 def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, seg_duration):
@@ -1245,35 +1278,3 @@ if __name__ == "__main__":
         fallback_upload()
     else:
         run()
-def _build_danmaku_srt(seg_dm, seg_duration):
-    """Build danmaku SRT: 5s windows, multiple danmaku per entry (plan A)."""
-    WINDOW = 5.0
-    lines = []
-    idx = 1
-    win_start = 0.0
-    while win_start < seg_duration:
-        win_end = min(win_start + WINDOW, seg_duration)
-        texts = []
-        for dp in seg_dm:
-            t = dp.get("_offset", dp.get("offset", 0))
-            if win_start <= t < win_end:
-                txt = (dp.get("text", "") or "")[:60]
-                if txt.strip():
-                    texts.append(txt)
-        if texts:
-            st = int(win_start)
-            et = int(win_end)
-            lines.append(
-                str(idx) + "\n" +
-                "%02d:%02d:%02d,%03d --> %02d:%02d:%02d,%03d" % (
-                    st // 3600, (st % 3600) // 60, st % 60, 0,
-                    et // 3600, (et % 3600) // 60, et % 60, 0
-                ) + "\n" +
-                "\n".join(texts) + "\n\n"
-            )
-            idx += 1
-        win_start = win_end
-    return "".join(lines)
-
-
-
