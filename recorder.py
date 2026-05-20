@@ -260,9 +260,9 @@ class DanmakuCollector:
                             _seen_texts.clear()
 
                     # 1b. HTTP viewer count (accurate, PW-independent)
-                    # Uses cookies extracted from Playwright session
+                    # HTTP API viewer count (every 10 iterations to avoid server-side issues)
                     _http_vc = None
-                    if self._api_url and self._api_cookies:
+                    if _collect_iter % 10 == 0 and self._api_url and self._api_cookies:
                         try:
                             _req = urllib.request.Request(self._api_url, headers={
                                 'Accept': 'application/json, text/plain, */*',
