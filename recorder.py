@@ -966,12 +966,12 @@ def run():
     current_room_idx = 0
 
     t0 = time.time()
-    with concurrent.futures.ThreadPoolExecutor(max_workers=len(rooms)) as ex:
-        def init_check(r):
-            live, reason, url, quality = http_check_live(r['id'])
-            aname = http_get_anchor_name(r['id'])
-            return (r, live, reason, url, quality, aname)
-        init_results = list(ex.map(init_check, rooms))
+    init_results = []
+    for r_init in rooms:
+        live, reason, url, quality = http_check_live(r_init['id'])
+        aname = http_get_anchor_name(r_init['id'])
+        init_results.append((r_init, live, reason, url, quality, aname))
+        time.sleep(random.uniform(1.0, 2.0))
     for r, live, reason, url, quality, aname in init_results:
         safe_name = r['name'][:20]
         log(f"  [{safe_name}] 直播状态={'在线' if live else '离线'} ({reason})")
