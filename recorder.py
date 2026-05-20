@@ -1175,7 +1175,7 @@ def _upload_worker():
             try:
                 dispatch = urllib.request.Request(
                     f"https://api.github.com/repos/{GH_REPO}/dispatches",
-                    data=json.dumps({"event_type": "transcribe_ready"}).encode(),
+                    data=json.dumps({"event_type": "transcribe_ready", "client_payload": {"filename": fname}}).encode(),
                     headers={"Authorization": f"Bearer {GH_TOKEN}", "Content-Type": "application/json"},
                     method="POST")
                 urllib.request.urlopen(dispatch, timeout=URLLIB_TIMEOUT)
