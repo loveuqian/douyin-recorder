@@ -1203,17 +1203,9 @@ def _upload_file(fpath, upload_name):
             url = existing[0]["upload_url"].replace("{?name,label}", f"?name={fname_only}")
         else:
             log(f"Creating release {tag}")
-            rel_data = {"tag_name": tag, "name": tag, "prerelease": True}
-            if '_meta.' in fname_only and fname_only.endswith('.json'):
-                try:
-                    meta_content = json.loads(content.decode('utf-8'))
-                    if 'peak_viewers' in meta_content:
-                        rel_data["body"] = json.dumps({"pv": meta_content['peak_viewers']})
-                except:
-                    pass
             r2 = json.loads(urllib.request.urlopen(
                 urllib.request.Request(release_url,
-                    data=json.dumps(rel_data).encode(),
+                    data=json.dumps({"tag_name": tag, "name": tag, "prerelease": True}).encode(),
                     headers={"Authorization": f"Bearer {GH_TOKEN}", "Content-Type": "application/json"}),
                 timeout=URLLIB_TIMEOUT).read())
             url = r2["upload_url"].replace("{?name,label}", f"?name={fname_only}")
