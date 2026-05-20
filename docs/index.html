@@ -363,7 +363,7 @@ async function lo(){
 
     rs.forEach(function(r){(r.body||'').split('\n').forEach(function(l){var i=l.indexOf('/');if(i>0&&i<l.length-1)nm[l.substring(i+1)]=l.substring(0,i)})});
 
-    as=[];
+    var mt={};as=[];
 
     rs.forEach(function(r){r.assets.forEach(function(a){
 
@@ -377,7 +377,7 @@ async function lo(){
 
     })});
 
-    var mt={};bp(mt);rrb();ud();
+    bp(mt);rrb();ud();
 
   }catch(e){document.getElementById('ct').innerHTML='<div class="empty-state"><p>Error: '+eh(e.message)+'</p></div>'}
 
