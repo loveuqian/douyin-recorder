@@ -1175,7 +1175,7 @@ def _upload_worker():
             try:
                 dispatch = urllib.request.Request(
                     f"https://api.github.com/repos/{GH_REPO}/dispatches",
-                    data=json.dumps({"event_type": "transcribe_ready"}).encode(),
+                    data=json.dumps({"event_type": "transcribe_ready", "client_payload": {"filename": fname}}).encode(),
                     headers={"Authorization": f"Bearer {GH_TOKEN}", "Content-Type": "application/json"},
                     method="POST")
                 urllib.request.urlopen(dispatch, timeout=URLLIB_TIMEOUT)
@@ -1203,9 +1203,17 @@ def _upload_file(fpath, upload_name):
             url = existing[0]["upload_url"].replace("{?name,label}", f"?name={fname_only}")
         else:
             log(f"Creating release {tag}")
+            rel_data = {"tag_name": tag, "name": tag, "prerelease": True}
+            if '_meta.' in fname_only and fname_only.endswith('.json'):
+                try:
+                    meta_content = json.loads(content.decode('utf-8'))
+                    if 'peak_viewers' in meta_content:
+                        rel_data["body"] = json.dumps({"pv": meta_content['peak_viewers']})
+                except:
+                    pass
             r2 = json.loads(urllib.request.urlopen(
                 urllib.request.Request(release_url,
-                    data=json.dumps({"tag_name": tag, "name": tag, "prerelease": True}).encode(),
+                    data=json.dumps(rel_data).encode(),
                     headers={"Authorization": f"Bearer {GH_TOKEN}", "Content-Type": "application/json"}),
                 timeout=URLLIB_TIMEOUT).read())
             url = r2["upload_url"].replace("{?name,label}", f"?name={fname_only}")
@@ -1293,7 +1301,7 @@ def fallback_upload():
         try:
             urllib.request.urlopen(urllib.request.Request(
                 f"https://api.github.com/repos/{GH_REPO}/dispatches",
-                data=json.dumps({"event_type": "transcribe_ready"}).encode(),
+                data=json.dumps({"event_type": "transcribe_ready", "client_payload": {"filename": fname}}).encode(),
                 headers={"Authorization": f"Bearer {GH_TOKEN}", "Content-Type": "application/json"},
                 method="POST"), timeout=15)
             log("Triggered transcription check")
