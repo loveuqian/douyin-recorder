@@ -114,6 +114,25 @@ for asset, upload_url_template, existing_names in release_jobs:
                     txt = re.sub(r'<\|[^|]+\|>\s*', '', txt).strip()
                     if txt:
                         text_lines.append(txt)
+                        # Estimate SRT from segment duration (model returned dict, no timestamps)
+                        words = txt.split()
+                        if words:
+                            sec_per_word = max(0.3, seg_len / max(1, len(words)))
+                            chunk_words = max(1, int(5.0 / sec_per_word))
+                            for j in range(0, len(words), chunk_words):
+                                chunk = words[j:j+chunk_words]
+                                st_sec = int(seg_offset + j * sec_per_word)
+                                et_sec = int(min(seg_offset + (j + len(chunk)) * sec_per_word, seg_end))
+                                txt_c = ' '.join(chunk).rstrip(',;.!?、。！？')
+                                if txt_c:
+                                    h, s_rem = divmod(st_sec, 3600)
+                                    m, s_rem = divmod(s_rem, 60)
+                                    sf = f'{h:02d}:{m:02d}:{s_rem:02d},000'
+                                    h2, s_rem2 = divmod(et_sec, 3600)
+                                    m2, s_rem2 = divmod(s_rem2, 60)
+                                    ef = f'{h2:02d}:{m2:02d}:{s_rem2:02d},000'
+                                    srt_lines.append(f'{srt_idx}\n{sf} --> {ef}\n{txt_c}\n')
+                                    srt_idx += 1
 
             os.remove(seg_path)
             seg_offset = seg_end
