@@ -23,11 +23,11 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
           cache-dependency-path: '**/requirements.txt'
-      - name: Cache Playwright + ML models
+      - name: Cache ML models
         uses: actions/cache@v4
         with:
           path: |
-            ~/.cache/ms-playwright
+            ~/.cache/pip
             ~/.cache/torch
             ~/.cache/modelscope
             ~/.cache/huggingface
@@ -49,9 +49,7 @@ jobs:
           pip install --timeout 60 funasr requests playwright
           mkdir -p /tmp/recordings /tmp/transcripts
       - name: Install Playwright browsers
-        run: |
-          rm -rf ~/.cache/ms-playwright/chromium*
-          python -m playwright install chromium
+        run: python -m playwright install chromium
         env:
           PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
       - name: Show TH time
