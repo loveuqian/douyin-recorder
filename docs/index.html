@@ -423,6 +423,22 @@ function bp(mt){
 
   pk=Object.values(mg);
 
+  // merge no-timestamp packages (old danmaku.srt/meta.json) into same-room same-date packages
+
+  var mg2={};var tm={};
+
+  pk.forEach(function(p){
+
+    var dk=p.ri?p.ri+'|'+p.dk:'noid';
+
+    if(!p.st){var found=false;for(var k in mg2){if(k.indexOf(dk+'|')===0){mg2[k].it=mg2[k].it.concat(p.it);found=true;break;}}}
+
+    if(!found){var mk2=p.st?dk+'|'+p.st:dk;if(!mg2[mk2]){mg2[mk2]=p;mg2[mk2].st=mg2[mk2].st||p.st;mg2[mk2].et=mg2[mk2].et||p.et;}}
+
+  });
+
+  pk=Object.values(mg2);
+
   pk.sort(function(a,b){
 
     var da=a.st?a.st.slice(0,8):a.dk.replace(/-/g,''),db=b.st?b.st.slice(0,8):b.dk.replace(/-/g,'');
