@@ -67,7 +67,7 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
 .pkg-card .file-badge
 .pkg-card .peak{font-size:15px;color:var(--accent1);margin:6px 0 8px}
 .pkg-card .peak .pkl{background:var(--surface3);padding:3px 10px;border-radius:6px;font-weight:600}
-.pkg-card .dur{font-size:13px;color:var(--text-dim);margin:0 0 6px}{display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;background:var(--surface3);color:var(--text-dim);margin:2px}
+.pkl{background:var(--surface3);padding:3px 10px;border-radius:6px;font-weight:600;display:inline-block}.pkg-card .dur{font-size:13px;color:var(--text-dim);margin:0 0 6px}{display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;background:var(--surface3);color:var(--text-dim);margin:2px}
 
 .loading,.empty-state{text-align:center;padding:60px;color:var(--text-dim)}
 
@@ -511,7 +511,7 @@ function rp(mt){
 
     h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
 
-    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];if(mu){let _mu=mu;(async function(kk,mi,url){try{var r=await fetch(url);var md=await r.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md.peak_viewers?'<span class="pkl">\u2601 '+Number(md.peak_viewers).toLocaleString()+'</span>':'<span class="pkl" style="color:var(--text-dim)">-</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(mu){let _mu=mu;(async function(kk,mi,url){try{var r=await fetch(url);var md=await r.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md.peak_viewers?'<span class="pkl">\u2601 '+Number(md.peak_viewers).toLocaleString()+'</span>':'<span class="pkl" style="color:var(--text-dim)">-</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
 
     h+='</div></div>';
 
