@@ -411,7 +411,7 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
         if e > s:
             lines.append(
                 "Dialogue: 0," + _fmt_ts(s) + "," + _fmt_ts(e) + ",ViewerCount,,0,0,0,,"
-                "{\\an8\\move(960,30,960,30,0,0)\\1c" + chr(38) + "HFFFFFF" + chr(38) + "\\3c" + chr(38) + "H0000FF" + chr(38) + "\\bord8\\shad0}" + str(vp["count"]) + " \u4eba\u5728\u770b"
+                "{\\an8\\move(960,30,960,30,0,0)\\bord4\\shad2\\1c" + chr(38) + "HFFFFFF" + chr(38) + "\\3c" + chr(38) + "H0000FF" + chr(38) + "\\4c" + chr(38) + "H0000FF" + chr(38) + "}" + str(vp["count"]) + " \u4eba\u5728\u770b"
             )
 
     if not seg_dm:
@@ -436,7 +436,7 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
         e = min(s + DUR, seg_duration)
         lines.append(
             "Dialogue: 1," + _fmt_ts(s) + "," + _fmt_ts(e) + ",Danmaku,,0,0,0,,"
-            "{\\an1\\move(100," + str(y) + ",100," + str(y) + ",0,0)\\bord8\\shad0\\3c" + chr(38) + "H0000FF" + chr(38) + "}" + txt
+            "{\\an1\\move(100," + str(y) + ",100," + str(y) + ",0,0)\\fad(200,0)\\bord4\\shad2\\1c" + chr(38) + "HFFFFFF" + chr(38) + "\\3c" + chr(38) + "H0000FF" + chr(38) + "\\4c" + chr(38) + "H0000FF" + chr(38) + "}" + txt
         )
 
     return '\n'.join(lines)
