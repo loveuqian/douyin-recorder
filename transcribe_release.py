@@ -5,32 +5,35 @@ repo = os.environ['GH_REPO']
 
 gh = {'Accept':'application/vnd.github+json','Authorization':'Bearer '+token}
 
-# Step 1: Scan ALL releases for untranscribed .wav files
-print('Scanning all releases for untranscribed audio...')
+# Step 1: Get filename from env (set by workflow dispatch) or scan untranscribed
+input_filename = os.environ.get('TRANSCRIBE_FILENAME', '')
 release_jobs = []
-page = 1
-while True:
-    url = 'https://api.github.com/repos/%s/releases?per_page=100&page=%d' % (repo, page)
-    rels = json.loads(urllib.request.urlopen(urllib.request.Request(url, headers=gh)).read())
-    if not rels:
-        break
-    for rel in rels:
-        upload_url = rel.get('upload_url', '')
-        existing_names = {a['name'] for a in rel.get('assets', [])}
-        for a in rel.get('assets', []):
-            name = a['name']
-            if not name.endswith('.wav'):
-                continue
-            base = name.rsplit('.', 1)[0]
-            if base + '.srt' not in existing_names:
-                                release_jobs.append((a, upload_url, existing_names))
-    page += 1
-
-if not release_jobs:
-    print('No new audio files to transcribe')
+if input_filename:
+    print('Targeting file:', input_filename)
+    # Find this specific file in releases
+    page = 1
+    while True:
+        url = 'https://api.github.com/repos/%s/releases?per_page=100&page=%d' % (repo, page)
+        rels = json.loads(urllib.request.urlopen(urllib.request.Request(url, headers=gh)).read())
+        if not rels:
+            break
+        for rel in rels:
+            upload_url = rel.get('upload_url', '')
+            for a in rel.get('assets', []):
+                if a['name'] == input_filename:
+                    release_jobs.append((a, upload_url))
+                    break
+        page += 1
+else:
+    # No filename given (e.g. manual trigger), skip - old files not processed
+    print('No TRANSCRIBE_FILENAME set, nothing to do')
     exit(0)
 
-print('Found %d audio file(s) to transcribe' % len(release_jobs))
+if not release_jobs:
+    print('Target file not found:', input_filename)
+    exit(0)
+
+print('Found %d file(s) to transcribe' % len(release_jobs))
 
 # Step 3: Download model (once)
 from funasr import AutoModel
