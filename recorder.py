@@ -385,7 +385,7 @@ def _fmt_ts(s):
     return f"{h}:{m:02d}:{sec:05.2f}"
 
 def _build_ass(seg_vc, seg_dm, seg_duration):
-    """Build ASS content. Simple ticker: 5s per danmaku, 10 rows, push-up."""
+    """Build ASS content. Slot-based push-up danmaku + persistent viewer count."""
 
     lines = [
         "[Script Info]",
@@ -403,41 +403,74 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
 
-    # Viewer count at top center, each shown for 5s
+    amp = chr(38)
+
+    # Viewer count: same style as danmaku, persistent until next update
+    # Inline: \bord4\shad2\1c&HFFFFFF&\3c&H0000FF&\4c&H0000FF& (same as danmaku)
     for i, vp in enumerate(seg_vc):
         t = vp.get("_offset", vp.get("offset", 0))
-        s = max(0, t - 1.0)
-        e = min(s + 5.0, seg_duration)
+        s = max(0, t - 0.5)
+        if i + 1 < len(seg_vc):
+            nt = seg_vc[i + 1].get("_offset", seg_vc[i + 1].get("offset", 0))
+            e = max(s + 1.0, min(nt - 0.3, seg_duration))
+        else:
+            e = seg_duration
         if e > s:
             lines.append(
                 "Dialogue: 0," + _fmt_ts(s) + "," + _fmt_ts(e) + ",ViewerCount,,0,0,0,,"
-                "{\\an8\\move(960,30,960,30,0,0)\\1c" + chr(38) + "HFFFFFF" + chr(38) + "\\3c" + chr(38) + "H0000FF" + chr(38) + "\\bord8\\shad0}" + str(vp["count"]) + " \u4eba\u5728\u770b"
+                "{\\an8\\move(960,30,960,30,0,0)\\fad(200,0)\\bord4\\shad2\\1c" + amp + "HFFFFFF" + amp + "\\3c" + amp + "H0000FF" + amp + "\\4c" + amp + "H0000FF" + amp + "}" + str(vp["count"]) + " \u4eba\u5728\u770b"
             )
 
     if not seg_dm:
         return '\n'.join(lines)
 
-    # Danmaku: simple row cycle, 5s each
-    DUR = 5.0
-    ROWS = 10
-    ROW_H = 34
+    # Danmaku: slot-based push-up (port from gen_pushup_fix.py)
+    # Each danmaku enters at bottom, existing messages get pushed up 32px per slot
+    MAX_SLOTS = 10
+    FONT_HEIGHT = 32
+    LEFT_X = 100
     BOTTOM_Y = 1050
+    APPEAR_FADE = 0.2
 
-    for idx, dp in enumerate(seg_dm):
+    # Build sorted list of unique timestamps to determine slot boundaries
+    dm_times = []
+    dm_texts = []
+    for dp in seg_dm:
         t = dp.get("_offset", dp.get("offset", 0))
         if t < 0 or t >= seg_duration:
             continue
         txt = (dp.get("text", "") or "")[:60].replace("{", "").replace("}", "")
         if not txt.strip():
             continue
-        row = idx % ROWS
-        y = BOTTOM_Y - row * ROW_H
-        s = max(0, t - 0.1)
-        e = min(s + DUR, seg_duration)
-        lines.append(
-            "Dialogue: 1," + _fmt_ts(s) + "," + _fmt_ts(e) + ",Danmaku,,0,0,0,,"
-            "{\\an1\\move(100," + str(y) + ",100," + str(y) + ",0,0)\\fad(200,0)\\bord4\\shad2\\1c" + chr(38) + "HFFFFFF" + chr(38) + "\\3c" + chr(38) + "H0000FF" + chr(38) + "\\4c" + chr(38) + "H0000FF" + chr(38) + "}" + txt
-        )
+        # De-duplicate: if same timestamp, shift by 0.5s
+        while t in dm_times:
+            t += 0.5
+        dm_times.append(t)
+        dm_texts.append(txt)
+
+    for idx in range(len(dm_times)):
+        enter_time = dm_times[idx]
+        txt = dm_texts[idx]
+        for shift in range(MAX_SLOTS):
+            slot_start = enter_time
+            if idx + shift < len(dm_times):
+                slot_start = max(enter_time, dm_times[idx + shift])
+            if idx + shift + 1 < len(dm_times):
+                slot_end = dm_times[idx + shift + 1]
+            else:
+                slot_end = seg_duration
+            if slot_end <= slot_start or slot_start >= seg_duration:
+                continue
+            fade = ""
+            if shift == 0 and slot_end - slot_start > APPEAR_FADE:
+                fade = "\\fad(" + str(int(APPEAR_FADE * 1000)) + ",0)"
+            y_pos = BOTTOM_Y - shift * FONT_HEIGHT
+            lines.append(
+                "Dialogue: 1," + _fmt_ts(slot_start) + "," + _fmt_ts(min(slot_end, seg_duration)) + ",Danmaku,,0,0,0,,"
+                "{\\an1" + fade + "\\move(" + str(LEFT_X) + "," + str(y_pos) + "," + str(LEFT_X) + "," + str(y_pos) + ",0,0)"
+                "\\1c" + amp + "HFFFFFF" + amp + "\\3c" + amp + "H0000FF" + amp + "\\4c" + amp + "H0000FF" + amp + "\\bord4\\shad2}" + txt
+            )
+            break  # placed in this slot, move to next danmaku
 
     return '\n'.join(lines)
 
