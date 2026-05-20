@@ -2,10 +2,13 @@ name: Transcribe Release Audio
 
 on:
   workflow_dispatch:
+    inputs:
+      filename:
+        description: 'Audio filename to transcribe'
+        required: false
+        default: ''
   repository_dispatch:
     types: [transcribe_self_renew, transcribe_ready]
-  schedule:
-    - cron: '*/30 * * * *'
 
 env:
   PYTHON_VERSION: '3.11'
@@ -47,8 +50,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install --timeout 60 --force-reinstall torch torchaudio --index-url https://download.pytorch.org/whl/cpu
           pip install --timeout 60 funasr requests
-      - name: Transcribe all untranscribed audio
+      - name: Transcribe target audio
         run: python transcribe_release.py
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GH_REPO: ${{ github.repository }}
+          TRANSCRIBE_FILENAME: ${{ github.event.client_payload.filename || github.event.inputs.filename || '' }}
