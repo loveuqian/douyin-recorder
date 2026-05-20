@@ -436,7 +436,7 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
         e = min(s + DUR, seg_duration)
         lines.append(
             "Dialogue: 1," + _fmt_ts(s) + "," + _fmt_ts(e) + ",Danmaku,,0,0,0,,"
-            "{\\an1\\move(100," + str(y) + ",100," + str(y) + ",0,0)\\fade(255,0,255,0,0,0," + str(int(DUR*1000)) + ")}" + txt
+            "{\\an1\\move(100," + str(y) + ",100," + str(y) + ",0,0)\\bord8\\shad0\\3c" + chr(38) + "H0000FF" + chr(38) + "}" + txt
         )
 
     return '\n'.join(lines)
