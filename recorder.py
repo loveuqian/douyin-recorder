@@ -5,7 +5,7 @@ import os, sys, json, threading, time, subprocess, re, urllib.request, urllib.er
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 WATCHDOG_TIMEOUT = 180
 WATCHDOG_ITER_SEC = 120
@@ -29,7 +29,7 @@ _upload_lock = threading.Lock()
 
 def log(msg):
     try:
-        ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        ts = datetime.now(timezone(timedelta(hours=7))).strftime("%Y-%m-%d %H:%M:%S")
         line = f"[{ts}] {msg}\n"
         sys.stdout.buffer.write(line.encode("utf-8"))
         sys.stdout.buffer.flush()
