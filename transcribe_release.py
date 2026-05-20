@@ -78,7 +78,7 @@ for asset, upload_url_template, existing_names in release_jobs:
             seg_len = seg_end - seg_offset
             print('  Segment %d: %dm%ds - %dm%ds (%ds)' % (seg_num + 1, seg_offset // 60, seg_offset % 60, seg_end // 60, seg_end % 60, seg_len))
 
-            result = model.generate(input=seg_path, ban_emo_unk=True, cache={})
+            result = model.generate(input=seg_path, ban_emo_unk=True, cache={}, vad_kwargs={"max_single_segment_duration": 5000, "max_end_silence": 400})
             if isinstance(result, list):
                 for item in result:
                     if isinstance(item, dict):
@@ -99,79 +99,34 @@ for asset, upload_url_template, existing_names in release_jobs:
                                             seg_dur = (et_ms - st_ms) / 1000.0
                                             seg_chars = len(seg_txt)
                                             # Sub-split long segments into ~3s chunks
-                                            if seg_dur > 5.0 and seg_chars > 0:
-                                                target_dur = min(seg_dur, 3.0)
-                                                sub_chars = max(1, int(seg_chars * target_dur / seg_dur))
-                                                for kk in range(0, seg_chars, sub_chars):
-                                                    sub_txt = seg_txt[kk:kk+sub_chars]
-                                                    frac_start = kk / seg_chars
-                                                    frac_end = (kk + len(sub_txt)) / seg_chars
-                                                    sub_st = int(st_ms + frac_start * (et_ms - st_ms))
-                                                    sub_et = int(st_ms + frac_end * (et_ms - st_ms))
-                                                    if sub_et <= sub_st:
-                                                        sub_et = sub_st + 500
-                                                    st_s = sub_st // 1000
-                                                    st_fmt = '%02d:%02d:%02d,%03d' % (st_s // 3600, (st_s % 3600) // 60, st_s % 60, sub_st % 1000)
-                                                    et_s = sub_et // 1000
-                                                    et_fmt = '%02d:%02d:%02d,%03d' % (et_s // 3600, (et_s % 3600) // 60, et_s % 60, sub_et % 1000)
-                                                    srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, sub_txt))
-                                                    srt_idx += 1
-                                            else:
-                                                st_s = st_ms // 1000
-                                                st_fmt = '%02d:%02d:%02d,%03d' % (st_s // 3600, (st_s % 3600) // 60, st_s % 60, st_ms % 1000)
-                                                et_s = et_ms // 1000
-                                                et_fmt = '%02d:%02d:%02d,%03d' % (et_s // 3600, (et_s % 3600) // 60, et_s % 60, et_ms % 1000)
-                                                srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, seg_txt))
-                                                srt_idx += 1
-                            else:
-                                if txt:
-                                    txt_len = len(txt)
-                                    if txt_len > 0:
-                                        chars_per_sec = max(1.0, txt_len / max(1, seg_len))
-                                        chunk_chars = max(1, int(3.0 * chars_per_sec))
-                                        for j in range(0, txt_len, chunk_chars):
-                                            chunk = txt[j:j+chunk_chars]
-                                            st_sec = int(seg_offset + (j / chars_per_sec))
-                                            et_sec = int(min(seg_offset + ((j + len(chunk)) / chars_per_sec), seg_end))
-                                            txt_c = chunk.rstrip(',;.!?、。！？')
-                                            if txt_c:
-                                                h, s_rem = divmod(st_sec, 3600)
-                                                m, s_rem = divmod(s_rem, 60)
-                                                sf = '%02d:%02d:%02d,000' % (h, m, s_rem)
-                                                h2, s_rem2 = divmod(et_sec, 3600)
-                                                m2, s_rem2 = divmod(s_rem2, 60)
-                                                ef = '%02d:%02d:%02d,000' % (h2, m2, s_rem2)
-                                                srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, sf, ef, txt_c))
-                                                srt_idx += 1
-                    elif isinstance(item, str) and item.strip():
-                        item = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', item).strip()
-                        if item:
-                            text_lines.append(item)
-            elif isinstance(result, dict):
-                txt = result.get('text', '') or result.get('sentence', '') or ''
-                if txt.strip():
-                    txt = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', txt).strip()
-                    if txt:
-                        text_lines.append(txt)
-                        # Estimate SRT from segment duration (model returned dict, no timestamps)
-                        txt_len = len(txt)
-                        if txt_len > 0:
-                            chars_per_sec = max(1.0, txt_len / max(1, seg_len))
-                            chunk_chars = max(1, int(3.0 * chars_per_sec))
-                            for jj in range(0, txt_len, chunk_chars):
-                                chunk = txt[jj:jj+chunk_chars]
-                                st_sec = int(seg_offset + (jj / chars_per_sec))
-                                et_sec = int(min(seg_offset + ((jj + len(chunk)) / chars_per_sec), seg_end))
-                                txt_c = chunk.rstrip(',;.!?、。！？')
-                                if txt_c:
-                                    h, s_rem = divmod(st_sec, 3600)
-                                    m, s_rem = divmod(s_rem, 60)
-                                    sf = '%02d:%02d:%02d,000' % (h, m, s_rem)
-                                    h2, s_rem2 = divmod(et_sec, 3600)
-                                    m2, s_rem2 = divmod(s_rem2, 60)
-                                    ef = '%02d:%02d:%02d,000' % (h2, m2, s_rem2)
-                                    srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, sf, ef, txt_c))
-                                    srt_idx += 1
+                                            if seg_dur > 6.0 and seg_chars > 0:
+                                                punct = re.split('[。！？]', seg_txt)
+                                                punct = [p.strip() for p in punct if p.strip()]
+                                                if len(punct) >= 2:
+                                                    cum_chars = 0
+                                                    for pi, part in enumerate(punct):
+                                                        plen = len(part)
+                                                        ps = int(st_ms + (cum_chars / seg_chars) * (et_ms - st_ms))
+                                                        pe = int(st_ms + ((cum_chars + plen) / seg_chars) * (et_ms - st_ms))
+                                                        if pe <= ps: pe = ps + 500
+                                                        st_fmt = '%02d:%02d:%02d,%03d' % (ps // 3600000, (ps // 60000) % 60, (ps // 1000) % 60, ps % 1000)
+                                                        et_fmt = '%02d:%02d:%02d,%03d' % (pe // 3600000, (pe // 60000) % 60, (pe // 1000) % 60, pe % 1000)
+                                                        srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, part))
+                                                        srt_idx += 1
+                                                        cum_chars += plen
+                                                else:
+                                                    sub_chars = max(1, int(seg_chars * 3.0 / seg_dur))
+                                                    for kk in range(0, seg_chars, sub_chars):
+                                                        sub_txt = seg_txt[kk:kk+sub_chars]
+                                                        frac_s = kk / seg_chars
+                                                        frac_e = (kk + len(sub_txt)) / seg_chars
+                                                        sub_st = int(st_ms + frac_s * (et_ms - st_ms))
+                                                        sub_et = int(st_ms + frac_e * (et_ms - st_ms))
+                                                        if sub_et <= sub_st: sub_et = sub_st + 500
+                                                        st_fmt = '%02d:%02d:%02d,%03d' % (sub_st // 3600000, (sub_st // 60000) % 60, (sub_st // 1000) % 60, sub_st % 1000)
+                                                        et_fmt = '%02d:%02d:%02d,%03d' % (sub_et // 3600000, (sub_et // 60000) % 60, (sub_et // 1000) % 60, sub_et % 1000)
+                                                        srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, sub_txt))
+                                                        srt_idx += 1
 
             os.remove(seg_path)
             seg_offset = seg_end
