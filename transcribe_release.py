@@ -23,7 +23,7 @@ while True:
                 continue
             base = name.rsplit('.', 1)[0]
             if base + '.srt' not in existing_names:
-                release_jobs.append((a, upload_url))
+                                release_jobs.append((a, upload_url, existing_names))
     page += 1
 
 if not release_jobs:
@@ -40,7 +40,7 @@ model = AutoModel(model='iic/SenseVoiceSmall', vad_model='fsmn-vad', punc_model=
 print('Model loaded')
 
 # Step 4: Transcribe each
-for asset, upload_url_template in release_jobs:
+for asset, upload_url_template, existing_names in release_jobs:
     try:
         name = asset['name']
         base = name.rsplit('.', 1)[0]
