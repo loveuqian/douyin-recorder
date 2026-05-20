@@ -470,7 +470,7 @@ def _build_ass(seg_vc, seg_dm, seg_duration):
                 "{\\an1" + fade + "\\move(" + str(LEFT_X) + "," + str(y_pos) + "," + str(LEFT_X) + "," + str(y_pos) + ",0,0)"
                 "\\1c" + amp + "HFFFFFF" + amp + "\\3c" + amp + "H0000FF" + amp + "\\4c" + amp + "H0000FF" + amp + "\\bord4\\shad2}" + txt
             )
-            break  # placed in this slot, move to next danmaku
+            # No break: each danmaku occupies all 10 slots (cascading push-up)
 
     return '\n'.join(lines)
 
