@@ -32,9 +32,6 @@ jobs:
             ~/.cache/modelscope
             ~/.cache/huggingface
           key: deps-v5-${{ runner.os }}-${{ hashFiles('recorder.py') }}
-          restore-keys: |
-            deps-v5-${{ runner.os }}-
-            deps-v5-
       - name: Cache apt packages
         uses: actions/cache@v4
         with:
@@ -52,7 +49,9 @@ jobs:
           pip install --timeout 60 funasr requests playwright
           mkdir -p /tmp/recordings /tmp/transcripts
       - name: Install Playwright browsers
-        run: python -m playwright install chromium
+        run: |
+          rm -rf ~/.cache/ms-playwright/chromium*
+          python -m playwright install chromium
         env:
           PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
       - name: Show TH time
