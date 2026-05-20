@@ -74,17 +74,12 @@ for asset, upload_url_template in release_jobs:
             seg_len = seg_end - seg_offset
             print('  Segment %d: %dm%ds - %dm%ds (%ds)' % (seg_num + 1, seg_offset // 60, seg_offset % 60, seg_end // 60, seg_end % 60, seg_len))
 
-            result = model.generate(input=seg_path)
+            result = model.generate(input=seg_path, cache={})
             if isinstance(result, list):
                 for item in result:
                     if isinstance(item, dict):
                         txt = item.get('text', '') or item.get('sentence', '') or ''
                         if txt.strip():
-                            txt = re.sub(r'<[^>]*\|[^>]*>', '', txt).strip()
-                            if not txt: continue
-                            # Python punctuation post-processing
-                            if not txt.endswith(('。','！','？','）','」','》','”')):
-                                txt += '。'
                             text_lines.append(txt.strip())
                             ts = item.get('timestamp', '')
                             if ts:
@@ -98,23 +93,13 @@ for asset, upload_url_template in release_jobs:
                                             st_fmt = '%02d:%02d:%02d,%03d' % (st_s // 3600, (st_s % 3600) // 60, st_s % 60, st_ms % 1000)
                                             et_s = et_ms // 1000
                                             et_fmt = '%02d:%02d:%02d,%03d' % (et_s // 3600, (et_s % 3600) // 60, et_s % 60, et_ms % 1000)
-                                            srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, seg_txt + ("。" if not seg_txt.endswith(("。","！","？","）","」","》","”")) else "") ))
+                                            srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, seg_txt))
                                             srt_idx += 1
                     elif isinstance(item, str) and item.strip():
-                        txt_clean = item.strip()
-                        txt_clean = re.sub(r'<\|\w+\|?>', '', txt_clean).strip()
-                        if txt_clean:
-                            if not txt_clean.endswith(('。','！','？','）','」','》','”')):
-                                txt_clean += '。'
-                            text_lines.append(txt_clean)
+                        text_lines.append(item.strip())
             elif isinstance(result, dict):
                 txt = result.get('text', '') or result.get('sentence', '') or ''
                 if txt.strip():
-                    import re as _re
-                    txt = re.sub(r'<[^>]*\|[^>]*>', '', txt).strip()
-                    if not txt: continue
-                    if not txt.endswith(('。','！','？','）','」','》','”')):
-                        txt += '。'
                     text_lines.append(txt.strip())
 
             os.remove(seg_path)
@@ -153,26 +138,3 @@ for asset, upload_url_template in release_jobs:
     except Exception as e:
         print('  Error transcribing %s: %s' % (name, e))
         continue
-
-
-# Self-renewal: schedule next check after each run
-print('Scheduling next transcription check (self-renewal)...')
-import urllib.request as _ur, json as _json, os as _os
-_gh = {'Accept':'application/vnd.github+json','Authorization':'Bearer '+_os.environ.get('GH_TOKEN','')}
-try:
-    _body = _json.dumps({'ref':'main','inputs':{'_self':'1'}}).encode()
-    _wf = _ur.parse.quote(_os.environ.get('GITHUB_WORKFLOW','Transcribe Release Audio'))
-    _req = _ur.Request('https://api.github.com/repos/' + _os.environ.get('GH_REPO','') + '/actions/workflows/' + _wf + '/dispatches',
-        data=_body, headers=dict(_gh, **{'Content-Type':'application/json'}), method='POST')
-    _ur.request.urlopen(_req, timeout=30)
-    print('  Self-trigger via workflow_dispatch OK')
-except Exception as e:
-    print('  workflow_dispatch failed:', e)
-    try:
-        _body2 = _json.dumps({'event_type':'transcribe_self_renew'}).encode()
-        _req2 = _ur.Request('https://api.github.com/repos/' + _os.environ.get('GH_REPO','') + '/dispatches',
-            data=_body2, headers=dict(_gh, **{'Content-Type':'application/json'}), method='POST')
-        _ur.request.urlopen(_req2, timeout=30)
-        print('  Self-trigger via repository_dispatch OK')
-    except Exception as e2:
-        print('  repository_dispatch also failed:', e2)
