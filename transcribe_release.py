@@ -104,6 +104,26 @@ for asset, upload_url_template, existing_names in release_jobs:
                                             et_fmt = '%02d:%02d:%02d,%03d' % (et_s // 3600, (et_s % 3600) // 60, et_s % 60, et_ms % 1000)
                                             srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, seg_txt))
                                             srt_idx += 1
+                    else:
+                        if txt:
+                            words = txt.split()
+                            if words:
+                                sec_per_word = max(0.3, seg_len / max(1, len(words)))
+                                chunk_words = max(1, int(5.0 / sec_per_word))
+                                for j in range(0, len(words), chunk_words):
+                                    chunk = words[j:j+chunk_words]
+                                    st_sec = int(seg_offset + j * sec_per_word)
+                                    et_sec = int(min(seg_offset + (j + len(chunk)) * sec_per_word, seg_end))
+                                    txt_c = ' '.join(chunk).rstrip(',;.!?、。！？')
+                                    if txt_c:
+                                        h, s_rem = divmod(st_sec, 3600)
+                                        m, s_rem = divmod(s_rem, 60)
+                                        sf = '%02d:%02d:%02d,000' % (h, m, s_rem)
+                                        h2, s_rem2 = divmod(et_sec, 3600)
+                                        m2, s_rem2 = divmod(s_rem2, 60)
+                                        ef = '%02d:%02d:%02d,000' % (h2, m2, s_rem2)
+                                        srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, sf, ef, txt_c))
+                                        srt_idx += 1
                     elif isinstance(item, str) and item.strip():
                         item = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', item).strip()
                         if item:
