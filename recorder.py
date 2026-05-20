@@ -559,7 +559,10 @@ def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, se
 
         srt_content = _build_danmaku_srt(seg_dm, seg_duration)
         if srt_content.strip():
-            srt_path = os.path.join(output_dir, f"{room_id}_{seq_idx:03d}.danmaku.srt")
+            # Name SRT to match segment filename: base_seq.danmaku.srt
+            seg_basename = os.path.basename(seg_fname)
+            srt_name = seg_basename[:-4] + ".danmaku.srt"
+            srt_path = os.path.join(output_dir, srt_name)
             with open(srt_path, "w", encoding="utf-8") as f:
                 f.write(srt_content)
 
@@ -576,9 +579,9 @@ def _process_segments(output_dir, room_id, anchor_name, seg_files, rec_start, se
             mkv_size = os.path.getsize(mkv_path)
             mkv_name = os.path.basename(mkv_path)
             mkv_results.append((mkv_path, mkv_name))
-            srt_path = os.path.join(output_dir, f"{room_id}_{seq_idx:03d}.danmaku.srt")
+            srt_path = os.path.join(output_dir, srt_name)
             if os.path.exists(srt_path):
-                mkv_results.append((srt_path, f"{room_id}_{seq_idx:03d}.danmaku.srt"))
+                mkv_results.append((srt_path, srt_name))
             log(f"[ASS] {anchor_name} seg{seq_idx} → MKV ({len(seg_dm)} dm, {mkv_size/1024/1024:.1f}MB)")
         else:
             log(f"[ASS] {anchor_name} seg{seq_idx} remux FAILED")
