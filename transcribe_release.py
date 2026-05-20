@@ -78,7 +78,7 @@ for asset, upload_url_template, existing_names in release_jobs:
             seg_len = seg_end - seg_offset
             print('  Segment %d: %dm%ds - %dm%ds (%ds)' % (seg_num + 1, seg_offset // 60, seg_offset % 60, seg_end // 60, seg_end % 60, seg_len))
 
-            result = model.generate(input=seg_path, ban_emo_unk=True, cache={}, vad_kwargs={"max_single_segment_duration": 5000, "max_end_silence": 400})
+            result = model.generate(input=seg_path, ban_emo_unk=True, cache={})
             if isinstance(result, list):
                 for item in result:
                     if isinstance(item, dict):
@@ -98,7 +98,7 @@ for asset, upload_url_template, existing_names in release_jobs:
                                                 continue
                                             seg_dur = (et_ms - st_ms) / 1000.0
                                             seg_chars = len(seg_txt)
-                                            # Sub-split long segments into ~3s chunks
+                                            # Sub-split sentences at 句号(。！？) if >6s
                                             if seg_dur > 6.0 and seg_chars > 0:
                                                 punct = re.split('[。！？]', seg_txt)
                                                 punct = [p.strip() for p in punct if p.strip()]
@@ -127,7 +127,74 @@ for asset, upload_url_template, existing_names in release_jobs:
                                                         et_fmt = '%02d:%02d:%02d,%03d' % (sub_et // 3600000, (sub_et // 60000) % 60, (sub_et // 1000) % 60, sub_et % 1000)
                                                         srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, sub_txt))
                                                         srt_idx += 1
-
+                            else:
+                                if txt:
+                                    txt_len = len(txt)
+                                    if txt_len > 0:
+                                        # Try punctuation split first
+                                        punct = re.split('[。！？]', txt)
+                                        punct = [p.strip() for p in punct if p.strip()]
+                                        if len(punct) >= 2:
+                                            chars_per_sec = max(1.0, txt_len / max(1, seg_len))
+                                            cum_j = 0
+                                            for pi, part in enumerate(punct):
+                                                pc = len(part)
+                                                ps = int(seg_offset + (cum_j / chars_per_sec))
+                                                pe = int(min(seg_offset + ((cum_j + pc) / chars_per_sec), seg_end))
+                                                st_fmt = '%02d:%02d:%02d,000' % (ps // 3600, (ps % 3600) // 60, ps % 60)
+                                                et_fmt = '%02d:%02d:%02d,000' % (pe // 3600, (pe % 3600) // 60, pe % 60)
+                                                srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, part))
+                                                srt_idx += 1
+                                                cum_j += pc
+                                        else:
+                                            chars_per_sec = max(1.0, txt_len / max(1, seg_len))
+                                            chunk_chars = max(1, int(3.0 * chars_per_sec))
+                                            for jj in range(0, txt_len, chunk_chars):
+                                                chunk = txt[jj:jj+chunk_chars]
+                                                ps = int(seg_offset + (jj / chars_per_sec))
+                                                pe = int(min(seg_offset + ((jj + len(chunk)) / chars_per_sec), seg_end))
+                                                chunk = chunk.rstrip(',;.!?、。！？')
+                                                if not chunk: continue
+                                                st_fmt = '%02d:%02d:%02d,000' % (ps // 3600, (ps % 3600) // 60, ps % 60)
+                                                et_fmt = '%02d:%02d:%02d,000' % (pe // 3600, (pe % 3600) // 60, pe % 60)
+                                                srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, chunk))
+                                                srt_idx += 1
+            elif isinstance(result, dict):
+                txt = result.get('text', '') or result.get('sentence', '') or ''
+                if txt.strip():
+                    txt = re.sub(r'<\s*\|[^|]+\|\s*>\s*', '', txt).strip()
+                    if txt:
+                        text_lines.append(txt)
+                        txt_len = len(txt)
+                        if txt_len > 0:
+                            # Try punctuation split first
+                            punct = re.split('[。！？]', txt)
+                            punct = [p.strip() for p in punct if p.strip()]
+                            if len(punct) >= 2:
+                                chars_per_sec = max(1.0, txt_len / max(1, seg_len))
+                                cum_j = 0
+                                for pi, part in enumerate(punct):
+                                    pc = len(part)
+                                    ps = int(seg_offset + (cum_j / chars_per_sec))
+                                    pe = int(min(seg_offset + ((cum_j + pc) / chars_per_sec), seg_end))
+                                    st_fmt = '%02d:%02d:%02d,000' % (ps // 3600, (ps % 3600) // 60, ps % 60)
+                                    et_fmt = '%02d:%02d:%02d,000' % (pe // 3600, (pe % 3600) // 60, pe % 60)
+                                    srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, part))
+                                    srt_idx += 1
+                                    cum_j += pc
+                            else:
+                                chars_per_sec = max(1.0, txt_len / max(1, seg_len))
+                                chunk_chars = max(1, int(3.0 * chars_per_sec))
+                                for jj in range(0, txt_len, chunk_chars):
+                                    chunk = txt[jj:jj+chunk_chars]
+                                    ps = int(seg_offset + (jj / chars_per_sec))
+                                    pe = int(min(seg_offset + ((jj + len(chunk)) / chars_per_sec), seg_end))
+                                    chunk = chunk.rstrip(',;.!?、。！？')
+                                    if not chunk: continue
+                                    st_fmt = '%02d:%02d:%02d,000' % (ps // 3600, (ps % 3600) // 60, ps % 60)
+                                    et_fmt = '%02d:%02d:%02d,000' % (pe // 3600, (pe % 3600) // 60, pe % 60)
+                                    srt_lines.append('%d\n%s --> %s\n%s\n' % (srt_idx, st_fmt, et_fmt, chunk))
+                                    srt_idx += 1
             os.remove(seg_path)
             seg_offset = seg_end
             seg_num += 1
