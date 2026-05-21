@@ -1,9 +1,9 @@
 {
   "51156070895": {
-    "live": false,
-    "recording": false,
-    "start_ts": null,
+    "live": true,
+    "recording": true,
+    "start_ts": 1779377791,
     "name": "3StoneS🐑",
-    "checked_at": 1779377774
+    "checked_at": 1779377791
   }
 }
