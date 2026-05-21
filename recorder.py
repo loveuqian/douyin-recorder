@@ -915,7 +915,7 @@ def handle_room_end(rid, recordings, anchor_names, now):
                     off = max(0, wt - rec_start)
                     dm_with_offset.append({**dp, "_offset": off})
                 dm_with_offset.sort(key=lambda x: x["_offset"])
-                                # Also extract viewer counts and convert to offsets
+                # Also extract viewer counts and convert to offsets
                 all_vc = global_data.get("http_viewer_counts", []) or global_data.get("viewer_counts", [])
                 vc_with_offset = []
                 for vc in all_vc:
