@@ -779,21 +779,45 @@ def stop_proc(proc):
             proc.kill()
 
 
-def _build_danmaku_srt(seg_dm, seg_duration):
-    """Build danmaku SRT: 5s windows, multiple danmaku per entry (plan A)."""
+def _build_danmaku_srt(seg_dm, seg_duration, viewer_counts=None):
+    """Build danmaku SRT: 5s windows, multiple danmaku per entry (plan A).
+    viewer_counts: optional list of {"count": N, "_offset": sec} to insert ☁ lines.
+    """
     WINDOW = 5.0
     lines = []
     idx = 1
     win_start = 0.0
+
+    # Pre-process viewer_counts into a lookup: which viewer count applies at each time
+    vc_at_time = {}  # time_second -> count_str
+    if viewer_counts:
+        for vc in viewer_counts:
+            vo = vc.get("_offset", 0)
+            vc_at_time[vo] = vc.get("count", 0)
+    # Sort the sampling times
+    vc_times = sorted(vc_at_time.keys())
+
     while win_start < seg_duration:
         win_end = min(win_start + WINDOW, seg_duration)
         texts = []
+
+        # Insert viewer count if a sample falls in or near this window
+        if vc_times:
+            # Find the latest viewer count sample <= win_end
+            vc_for_win = None
+            for vt in vc_times:
+                if win_start - WINDOW <= vt < win_end + WINDOW:
+                    vc_for_win = vc_at_time[vt]
+            if vc_for_win is not None and vc_for_win > 0:
+                texts.append("☁ " + "{:,}".format(vc_for_win) + "人")
+
         for dp in seg_dm:
             t = dp.get("_offset", dp.get("offset", 0))
             if win_start <= t < win_end:
                 txt = (dp.get("text", "") or "")[:60]
                 if txt.strip():
                     texts.append(txt)
+
         if texts:
             st = int(win_start)
             et = int(win_end)
@@ -808,8 +832,6 @@ def _build_danmaku_srt(seg_dm, seg_duration):
             idx += 1
         win_start = win_end
     return "".join(lines)
-
-
 
 def handle_room_end(rid, recordings, anchor_names, now):
     if rid not in recordings:
@@ -893,7 +915,15 @@ def handle_room_end(rid, recordings, anchor_names, now):
                     off = max(0, wt - rec_start)
                     dm_with_offset.append({**dp, "_offset": off})
                 dm_with_offset.sort(key=lambda x: x["_offset"])
-                srt_content = _build_danmaku_srt(dm_with_offset, total_duration)
+                                # Also extract viewer counts and convert to offsets
+                all_vc = global_data.get("http_viewer_counts", []) or global_data.get("viewer_counts", [])
+                vc_with_offset = []
+                for vc in all_vc:
+                    vwt = vc.get("wall_ts", vc.get("offset", 0))
+                    voff = max(0, vwt - rec_start)
+                    vc_with_offset.append({**vc, "_offset": voff})
+                vc_with_offset.sort(key=lambda x: x["_offset"])
+                srt_content = _build_danmaku_srt(dm_with_offset, total_duration, viewer_counts=vc_with_offset)
                 if srt_content.strip():
                     dm_srt_basename = os.path.basename(base_prefix) + ".danmaku.srt"
                     dm_srt_path = os.path.join(OUTPUT_DIR, dm_srt_basename)
