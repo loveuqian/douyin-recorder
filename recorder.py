@@ -39,6 +39,20 @@ def log(msg):
         _os.write(1, b"[LOGGING_FAILED]\n")
 
 
+def bark_notify(title, body=""):
+    """通过 Bark 发送推送通知。"""
+    try:
+        from urllib.parse import quote
+        url = "https://api.day.app/LmAQ2kt6sWz6zaFTHEDAWh/" + quote(title) + "?level=critical&volume=5"
+        if body:
+            url += "&body=" + quote(body)
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        urllib.request.urlopen(req, timeout=10)
+        log(f"[Bark] 推送成功: {title}")
+    except Exception as e:
+        log(f"[Bark] 推送失败: {e}")
+
+
 _ua_pool = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
@@ -738,6 +752,7 @@ def start_recording(url, quality, room_id, anchor_name=""):
                    "quality": quality, "seg_duration": seg_duration}, f)
 
     log(f"Start recording: {anchor_name}/{base}_%03d.mp4 [{quality}] seg={seg_duration}s + audio")
+    bark_notify(f"{anchor_name} 开播了", f"直播间: {room_id} | 清晰度: {quality}")
 
     ff_ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     cookie_val = ""
