@@ -239,6 +239,18 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
 
 </div>
 
+<div class="overlay" id="pm">
+
+  <div class="modal" style="max-width:800px">
+
+    <div class="modal-top"><div class="mtitle" id="pt"></div><button onclick="cp()">&#x2715;</button></div>
+
+    <div class="modal-body" id="pb" style="padding:0;background:#000;line-height:0"></div>
+
+  </div>
+
+</div>
+
 <script>
 
 var R = 'loveuqian/douyin-recorder', A = 'https://api.github.com', T = 'ghp_HjTGJi6Wuqk' + 'NJJ9VdmHqaBK30IHRDn2fKRhs';
@@ -579,7 +591,11 @@ function od(an,pi){
 
       h+='<div class="fitem"><div class="fi"><div class="fn">'+eh(a.n)+'</div><div class="fm">'+fs(a.z)+'</div></div>';
 
-      h+='<div class="fa"><a href="'+eh(a.u)+'" target="_blank">&#x2B07;</a>';
+      h+='<div class="fa">';
+
+      if(t==='v'||t==='a'){h+='<button onclick="pv(\''+a.u+'\',\''+eh(a.n)+'\')">&#x25B6;</button>'}
+
+      h+='<a href="'+eh(a.u)+'" target="_blank">&#x2B07;</a>';
 
       h+='<button class="ddel" onclick="de('+a.id+')">&#x2715;</button></div></div>';
 
@@ -596,6 +612,22 @@ function od(an,pi){
 }
 
 function cls(id){document.getElementById(id).classList.remove('show')}
+
+function pv(u,t){
+  var h='<video src="'+u+'" controls autoplay style="width:100%;display:block"></video>';
+  var f=t.toLowerCase();
+  if(f.endsWith('.mp3')||f.endsWith('.wav')||f.endsWith('.aac')||f.endsWith('.ogg')){
+    h='<div style="padding:40px 20px;text-align:center"><audio src="'+u+'" controls autoplay style="width:100%"></audio></div>';
+  }
+  document.getElementById('pt').textContent=t;
+  document.getElementById('pb').innerHTML=h;
+  document.getElementById('pm').classList.add('show');
+}
+
+function cp(){
+  document.getElementById('pb').innerHTML='';
+  document.getElementById('pm').classList.remove('show');
+}
 
 function de(id){
 
