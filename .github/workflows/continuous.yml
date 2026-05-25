@@ -81,7 +81,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GH_RUN_ID: ${{ github.run_id }}
       - name: Self-renew (trigger next run, dedup)
-        if: success()
+        if: always()
         run: |
           EXISTING=$(curl -s -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
