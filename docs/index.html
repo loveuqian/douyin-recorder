@@ -285,19 +285,19 @@ function pfn(n){
 
   // 0) segment format: roomid_start_seq
 
-  var m0=pre.match(/^(\d+)_(\d{8}_\d{6})_\d{3}$/);
+  var m0=pre.match(/^([^/_]+)_(\d{8}_\d{6})_\d{3}$/);
 
   if(m0)return{id:m0[1],s:m0[2],e:null};
 
   // 1) roomid_start~end
 
-  var m=pre.match(/^(\d+)_(\d{8}_\d{6})~(\d{8}_\d{6})$/);
+  var m=pre.match(/^([^/_]+)_(\d{8}_\d{6})~(\d{8}_\d{6})$/);
 
   if(m)return{id:m[1],s:m[2],e:m[3]};
 
   // 2) roomid_start_end
 
-  m=pre.match(/^(\d+)_(\d{8}_\d{6})_(\d{8}_\d{6})$/);
+  m=pre.match(/^([^/_]+)_(\d{8}_\d{6})_(\d{8}_\d{6})$/);
 
   if(m)return{id:m[1],s:m[2],e:m[3]};
 
@@ -305,7 +305,7 @@ function pfn(n){
 
   if(parts.length>=3){
 
-    var m2=pre.match(/^(\d+)_(\d{8}_\d{6})$/);
+    var m2=pre.match(/^([^/_]+)_(\d{8}_\d{6})$/);
 
     if(m2&&parts[1].match(/^\d{8}_\d{6}$/))return{id:m2[1],s:m2[2],e:parts[1]};
 
@@ -313,28 +313,28 @@ function pfn(n){
 
   // 4) roomid_FULL_HD1_start
 
-  m=pre.match(/^(\d+)_[A-Z0-9_]+_(\d{8}_\d{6})$/);
+  m=pre.match(/^([^/_]+)_[A-Z0-9_]+_(\d{8}_\d{6})$/);
 
   if(m)return{id:m[1],s:m[2],e:null};
 
   // 5) roomid_start
 
-  m=pre.match(/^(\d+)_(\d{8}_\d{6})$/);
+  m=pre.match(/^([^/_]+)_(\d{8}_\d{6})$/);
 
   if(m)return{id:m[1],s:m[2],e:null};
 
   // 5b) roomid_start_meta (meta.json has _meta suffix before ext)
 
-  m=pre.match(/^(\d+)_(\d{8}_\d{6})_meta$/);
+  m=pre.match(/^([^/_]+)_(\d{8}_\d{6})_meta$/);
 
   if(m)return{id:m[1],s:m[2],e:null};
 
   // 5c) roomid_start_meta.{end}.json (new format with end timestamp)
-  m=pre.match(/^(\d+)_(\d{8}_\d{6})_meta\.\d{8}_\d{6}$/);
+  m=pre.match(/^([^/_]+)_(\d{8}_\d{6})_meta\.\d{8}_\d{6}$/);
   if(m)return{id:m[1],s:m[2],e:null};
 
   // Fallback: roomid-only prefix (for _meta.json, danmaku.srt or unknown patterns)
-  var mid=n.match(/^(\d+)/);
+  var mid=n.match(/^([^/_]+)/);
   if(mid)return{id:mid[1],s:null,e:null};
 
   return null;
