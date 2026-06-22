@@ -660,6 +660,8 @@ function de(id){
 
 function st(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
 
+document.addEventListener('keydown',function(e){if(e.key==='Escape')cls('dm')});
+
 function sw(t){
 
   document.getElementById('tb1').className='tab-btn'+(t=='browse'?' active':'');
