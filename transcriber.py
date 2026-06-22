@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """音频转写 - 使用 SenseVoice (funasr) 将录制音频转为文字"""
 import os, sys, json, glob, re, subprocess, time
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+
+BEIJING_TZ = timezone(timedelta(hours=8))
 
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "/tmp/recordings")
 TRANSCRIBE_DIR = os.environ.get("TRANSCRIBE_DIR", "/tmp/transcripts")
@@ -9,7 +11,7 @@ GH_REPO = os.environ.get("GH_REPO", "")
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
 
 def log(msg):
-    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}", flush=True)
+    print(f"[{datetime.now(BEIJING_TZ).strftime('%Y-%m-%d %H:%M:%S')}] {msg}", flush=True)
 
 def download_release_audio():
     """从GitHub Release下载未转写的音频文件"""
@@ -135,8 +137,8 @@ def upload_result(filepath):
     """上传转写结果到 Release"""
     if not filepath or not os.path.exists(filepath) or not GH_REPO or not GH_TOKEN:
         return
-    release_tag = f"trans-{datetime.now().strftime('%Y%m%d')}"
-    subprocess.run(["gh","release","create",release_tag,"--repo",GH_REPO,"--title",f"转写 {datetime.now().strftime('%Y-%m-%d')}","--notes","SenseVoice自动转写","--target","main"],
+    release_tag = f"trans-{datetime.now(BEIJING_TZ).strftime('%Y%m%d')}"
+    subprocess.run(["gh","release","create",release_tag,"--repo",GH_REPO,"--title",f"转写 {datetime.now(BEIJING_TZ).strftime('%Y-%m-%d')}","--notes","SenseVoice自动转写","--target","main"],
                   capture_output=True, timeout=30, env={**os.environ, "GITHUB_TOKEN": GH_TOKEN})
     r = subprocess.run(["gh","release","upload",release_tag,filepath,"--repo",GH_REPO,"--clobber"],
                       capture_output=True, text=True, timeout=120, env={**os.environ, "GITHUB_TOKEN": GH_TOKEN})

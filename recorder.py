@@ -6,6 +6,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
 from datetime import datetime, timezone, timedelta
+BEIJING_TZ = timezone(timedelta(hours=8))
 
 WATCHDOG_TIMEOUT = 180
 WATCHDOG_ITER_SEC = 120
@@ -30,7 +31,7 @@ _upload_lock = threading.Lock()
 
 def log(msg):
     try:
-        ts = datetime.now(timezone(timedelta(hours=7))).strftime("%Y-%m-%d %H:%M:%S")
+        ts = datetime.now(BEIJING_TZ).strftime("%Y-%m-%d %H:%M:%S")
         line = f"[{ts}] {msg}\n"
         sys.stdout.buffer.write(line.encode("utf-8"))
         sys.stdout.buffer.flush()
@@ -740,7 +741,7 @@ def update_rooms_nickname(anchor_names):
 def start_recording(url, quality, room_id, anchor_name=""):
     """Start ffmpeg segmented recording + Playwright data collector."""
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ts = datetime.now(BEIJING_TZ).strftime("%Y%m%d_%H%M%S")
     base = f"{room_id}_{ts}"
     seg_duration = int(os.environ.get("SEGMENT_DURATION", "900"))
     outfile_pattern = os.path.join(OUTPUT_DIR, f"{base}_%03d.mp4")
@@ -878,8 +879,8 @@ def handle_room_end(rid, recordings, anchor_names, now):
     audiofile = rec.get("audiofile", "")
     seg_duration = rec.get("seg_duration", 900)
     from datetime import datetime as _dt
-    start_ts_fmt = _dt.fromtimestamp(rec.get("start", 0)).strftime("%Y%m%d_%H%M%S")
-    end_ts_fmt = _dt.fromtimestamp(now).strftime("%Y%m%d_%H%M%S")
+    start_ts_fmt = _dt.fromtimestamp(rec.get("start", 0), BEIJING_TZ).strftime("%Y%m%d_%H%M%S")
+    end_ts_fmt = _dt.fromtimestamp(now, BEIJING_TZ).strftime("%Y%m%d_%H%M%S")
     aname = anchor_names.get(rid, rid)
     dirname = OUTPUT_DIR
 
@@ -892,7 +893,7 @@ def handle_room_end(rid, recordings, anchor_names, now):
     upload_files = []
     for seg_fname in seg_files:
         seg_path = os.path.join(dirname, seg_fname)
-        seg_end = _dt.fromtimestamp(os.path.getmtime(seg_path)).strftime("%Y%m%d_%H%M%S")
+        seg_end = _dt.fromtimestamp(os.path.getmtime(seg_path), BEIJING_TZ).strftime("%Y%m%d_%H%M%S")
         upload_files.append((seg_path, seg_fname))
 
     # Handle audio

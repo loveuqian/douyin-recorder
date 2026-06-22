@@ -7,6 +7,7 @@ on:
 
 env:
   PYTHON_VERSION: '3.11'
+  TZ: Asia/Shanghai
 
 jobs:
   record:
@@ -50,10 +51,10 @@ jobs:
           mkdir -p /tmp/recordings /tmp/transcripts
       - name: Install Playwright browsers
         run: python -m playwright install chromium --with-deps
-      - name: Show TH time
+      - name: Show Beijing time
         run: |
           echo 'GitHub UTC: ' $(date -u '+%Y-%m-%d %H:%M:%S')
-          echo 'Thailand:  ' $(TZ='Asia/Bangkok' date '+%Y-%m-%d %H:%M:%S')
+          echo 'Beijing:   ' $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
       - name: Set locale
         run: |
           sudo locale-gen en_US.UTF-8 || true

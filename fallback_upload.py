@@ -44,8 +44,8 @@ for fn in os.listdir(d):
     # Auto-rename if no ~ in filename
     if '~' not in fn:
         try:
-            from datetime import datetime
-            ets = datetime.now().strftime('%Y%m%d_%H%M%S')
+            from datetime import datetime, timezone, timedelta
+            ets = datetime.now(timezone(timedelta(hours=8))).strftime('%Y%m%d_%H%M%S')
             dn = os.path.dirname(fp)
             bn = fn.rsplit('.', 1)[0]
             ext = fn.split('.')[-1] if '.' in fn else ''

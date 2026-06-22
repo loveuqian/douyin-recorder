@@ -269,7 +269,7 @@ function gl(t){return{v:'视频',a:'音频',t:'文字',s:'SRT',o:'其他'}[t]||'
 
 function eh(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
-function fl(d){return new Date(d).toLocaleString([],{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}
+function fl(d){return new Date(d).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})}
 
 function pfn(n){
 
@@ -341,9 +341,15 @@ function pfn(n){
 
 }
 
-function ts(d){return new Date(d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8)+'T'+d.slice(9,11)+':'+d.slice(11,13)+':'+d.slice(13,15)+'Z')}
+function ts(d,c,m){var u=new Date(d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8)+'T'+d.slice(9,11)+':'+d.slice(11,13)+':'+d.slice(13,15)+'Z'),b=new Date(d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8)+'T'+d.slice(9,11)+':'+d.slice(11,13)+':'+d.slice(13,15)+'+08:00');if(m==='u')return u;if(m==='b')return b;if(!c)return u;var cd=new Date(c);return Math.abs(cd-u)<Math.abs(cd-b)?u:b}
 
-function ft(s,e){var a=fl(ts(s));return e?a+' ~ '+fl(ts(e)):a}
+function tm(s,e,c){if(!c)return'u';var cd=new Date(c),r=e||s,u=ts(r,null,'u'),b=ts(r,null,'b');return Math.abs(cd-u)<Math.abs(cd-b)?'u':'b'}
+
+function ft(s,e,c){var m=tm(s,e,c),a=fl(ts(s,c,m));return e?a+' ~ '+fl(ts(e,c,m)):a}
+
+function ymd(d){var p=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(d)),m={};p.forEach(function(x){m[x.type]=x.value});return m.year+'-'+m.month+'-'+m.day}
+
+function dkof(s,c,e){if(!s)return(c||'').slice(0,10);return ymd(ts(s,c,tm(s,e,c)))}
 
 function gb(i){if(rm)for(var j=0;j<rm.length;j++)if(rm[j].id===i)return rm[j].name;return null}
 
@@ -421,7 +427,7 @@ function bp(mt){
 
     var pk=a.st?ak+'|'+(a.st||'')+'|'+(a.et||''):ak+'|'+a.c.slice(0,10);
 
-    if(!g[pk]){var tdk=a.c.slice(0,10);if(tdk.length>10)tdk=tdk.slice(0,10);g[pk]={an:ak,ri:a.ri,st:a.st,et:a.et,it:[],dk:tdk};}
+    if(!g[pk]){var tdk=dkof(a.st,a.c,a.et);if(tdk.length>10)tdk=tdk.slice(0,10);g[pk]={an:ak,ri:a.ri,st:a.st,et:a.et,it:[],dk:tdk,c:a.c};}
 
     g[pk].it.push(a);
 
@@ -533,7 +539,7 @@ function rp(mt){
 
     var dn=p.an;if(dn==='oth')dn='其他主播';h+='<div class="anchor-name">'+eh(dn)+(p.ri?' <a href="https://live.douyin.com/'+p.ri+'" target="_blank" style="font-size:11px;color:var(--accent3);text-decoration:none">'+p.ri+'</a>':'')+'</div>';
 
-    h+='<div class="time-range">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var ts=p.st.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/),te=p.et.replace(/_/g,"").match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);if(ts&&te){var ds=new Date(te[1],te[2]-1,te[3],te[4],te[5],te[6])-new Date(ts[1],ts[2]-1,ts[3],ts[4],ts[5],ts[6]);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}}else{h+='<div class="dur">--</div>';}h+='<div>';
+    h+='<div class="time-range">'+(p.st?ft(p.st,p.et,p.c):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var _tm=tm(p.st,p.et,p.c),ds=ts(p.et,p.c,_tm)-ts(p.st,p.c,_tm);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}else{h+='<div class="dur">--</div>';}h+='<div>';
 
     let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];if(typeof mu==='object'&&mu.pv){h+='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else{h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
 
@@ -581,7 +587,7 @@ function od(an,pi){
 
   p.it.forEach(function(a){if(gr[a.ty])gr[a.ty].push(a);else gr.t.push(a)});
 
-  var h='<div style="margin-bottom:16px;font-weight:600">'+(p.st?ft(p.st,p.et):(p.st?'':p.dk.slice(5)))+'</div>';
+  var h='<div style="margin-bottom:16px;font-weight:600">'+(p.st?ft(p.st,p.et,p.c):(p.st?'':p.dk.slice(5)))+'</div>';
 
   ['v','a','t','s','o'].forEach(function(t){
 

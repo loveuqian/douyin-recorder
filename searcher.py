@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """抖音搜索发现 - requests 搜索页+API混合版"""
 import os, sys, json, time, re, base64, urllib.request, urllib.error, traceback as tb
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
 
 GH_REPO = os.environ.get("GH_REPO", "")
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
 DOUYIN_COOKIE = os.environ.get("DOUYIN_COOKIE", "")
+BEIJING_TZ = timezone(timedelta(hours=8))
 SEARCH_KEYWORDS = [
     ("泰国", 1000),
     ("美国", 1000),
@@ -15,7 +16,7 @@ SEARCH_KEYWORDS = [
 ]
 
 def log(msg):
-    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}", flush=True)
+    print(f"[{datetime.now(BEIJING_TZ).strftime('%Y-%m-%d %H:%M:%S')}] {msg}", flush=True)
 
 def get_rooms():
     try:
