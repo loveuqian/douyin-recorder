@@ -501,6 +501,8 @@ function pf(){
 
 function rp(mt){
 
+  if(mt)window._mt=mt;else mt=window._mt||{};
+
   var q=document.getElementById('si').value.toLowerCase(),af=document.getElementById('af').value,df=document.getElementById('df').value;
 
   var f=pk.filter(function(p){
