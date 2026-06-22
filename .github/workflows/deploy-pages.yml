@@ -5,8 +5,10 @@ on:
     branches: [main]
     paths:
       - 'docs/index.html'
+      - 'docs/recordings_index.json'
       - 'docs/transcripts.html'
       - 'docs/transcripts_index.json'
+      - 'recordings_index.py'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -27,6 +29,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Build recordings index
+        run: python3 recordings_index.py rebuild
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

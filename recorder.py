@@ -1211,12 +1211,15 @@ def _start_upload_worker():
 
 
 def _upload_worker():
+    uploaded_any = False
     while True:
         with _upload_lock:
             if not _upload_queue:
                 break
             fpath, fname = _upload_queue.pop(0)
         ok = _upload_file(fpath, fname)
+        if ok:
+            uploaded_any = True
         if ok and fname.endswith('.wav') and GH_REPO and GH_TOKEN:
             try:
                 dispatch = urllib.request.Request(
@@ -1228,6 +1231,24 @@ def _upload_worker():
                 log("Triggered transcription dispatch")
             except Exception as e:
                 log(f"Trigger dispatch error: {e}")
+    if uploaded_any:
+        _trigger_pages_index_refresh()
+
+
+def _trigger_pages_index_refresh():
+    if not GH_REPO or not GH_TOKEN:
+        return
+    try:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{GH_REPO}/actions/workflows/deploy-pages.yml/dispatches",
+            data=json.dumps({"ref": "main"}).encode(),
+            headers={"Authorization": f"Bearer {GH_TOKEN}", "Content-Type": "application/json",
+                     "Accept": "application/vnd.github+json"},
+            method="POST")
+        urllib.request.urlopen(req, timeout=URLLIB_TIMEOUT)
+        log("Triggered Pages index refresh")
+    except Exception as e:
+        log(f"Pages index refresh error: {e}")
 
 
 def _upload_file(fpath, upload_name):

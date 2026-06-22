@@ -19,6 +19,7 @@ jobs:
     timeout-minutes: 120
     permissions:
       contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
@@ -56,3 +57,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GH_REPO: ${{ github.repository }}
           TRANSCRIBE_FILENAME: ${{ github.event.client_payload.filename || github.event.inputs.filename || '' }}
+      - name: Refresh Pages index
+        if: always()
+        run: |
+          curl -sS -X POST "https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy-pages.yml/dispatches" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "User-Agent: refresh-pages-index" \
+            --data '{"ref":"main"}' && echo "Refresh Pages OK" || echo "Refresh Pages FAIL"

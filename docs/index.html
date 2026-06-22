@@ -373,15 +373,24 @@ async function lo(){
 
     try{var lsr=await fetch('https://raw.githubusercontent.com/'+R+'/main/docs/live_status.json?_='+Date.now());if(lsr.ok)ls=await lsr.json()}catch(le){}
 
-    var hd={Accept:'application/vnd.github+json',Authorization:'Bearer '+T};
+    var rr=[],ixok=false;
 
-    var pa=1,rr=[];
+    // 优先读取 Pages 静态索引，避免首屏全量扫描 Releases。
+    try{var ixr=await fetch('recordings_index.json?_='+Date.now());if(ixr.ok){var ix=await ixr.json();if(ix&&Array.isArray(ix.releases)){rr=ix.releases;ixok=true}}}catch(ixe){}
 
-    while(true){
+    if(!ixok){
 
-      var res=await fetch(A+'/repos/'+R+'/releases?per_page=100&page='+pa,{headers:hd});
+      var hd={Accept:'application/vnd.github+json',Authorization:'Bearer '+T};
 
-      if(!res.ok)break;var da=await res.json();if(!da.length)break;rr=rr.concat(da);pa++;
+      var pa=1;
+
+      while(true){
+
+        var res=await fetch(A+'/repos/'+R+'/releases?per_page=100&page='+pa,{headers:hd});
+
+        if(!res.ok)break;var da=await res.json();if(!da.length)break;rr=rr.concat(da);pa++;
+
+      }
 
     }
 
