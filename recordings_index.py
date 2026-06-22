@@ -26,8 +26,23 @@ def _request_json(url, headers, timeout=30):
         return json.loads(resp.read().decode("utf-8"))
 
 
-def _asset_data(asset):
-    return {
+def _is_meta_asset(name):
+    name = (name or "").lower()
+    return "_meta.json" in name or ("_meta." in name and name.endswith(".json"))
+
+
+def _body_peak_viewers(body):
+    try:
+        data = json.loads(body or "{}")
+        if isinstance(data, dict) and "pv" in data:
+            return data.get("pv")
+    except Exception:
+        return None
+    return None
+
+
+def _asset_data(asset, body_peak):
+    data = {
         "id": asset.get("id"),
         "name": asset.get("name", ""),
         "size": asset.get("size", 0),
@@ -35,15 +50,21 @@ def _asset_data(asset):
         "browser_download_url": asset.get("browser_download_url", ""),
         "created_at": asset.get("created_at", ""),
     }
+    if _is_meta_asset(data["name"]):
+        if body_peak is not None:
+            data["peak_viewers"] = body_peak
+    return data
 
 
 def _release_data(release):
+    body = release.get("body", "") or ""
+    body_peak = _body_peak_viewers(body)
     return {
         "tag_name": release.get("tag_name", ""),
         "name": release.get("name", ""),
-        "body": release.get("body", "") or "",
+        "body": body,
         "created_at": release.get("created_at", "") or release.get("published_at", ""),
-        "assets": [_asset_data(a) for a in release.get("assets", [])],
+        "assets": [_asset_data(a, body_peak) for a in release.get("assets", [])],
     }
 
 

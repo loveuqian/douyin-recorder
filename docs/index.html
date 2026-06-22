@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>抖音录制文件浏览器</title>
+<link rel="icon" href="data:,">
 
 <style>
 
@@ -404,7 +405,7 @@ async function lo(){
 
     rs.forEach(function(r){r.assets.forEach(function(a){
 
-      var t=gt(a.name),p=pfn(a.name),id=p?p.id:null;if(t=='m'){var mk=id+'|'+(p&&p.s?p.s:'');try{var _bd=JSON.parse(r.body||'{}');if(_bd&&_bd.pv){mt[mk]={pv:_bd.pv};if(id)mt[id]={pv:_bd.pv};}else{mt[mk]=a.url;}}catch(e){mt[mk]=a.url;}if(id&&!mt[id])mt[id]=a.url;return;}
+      var t=gt(a.name),p=pfn(a.name),id=p?p.id:null;if(t=='m'){var mk=id+'|'+(p&&p.s?p.s:''),pv=a.peak_viewers;if(pv!==undefined&&pv!==null){mt[mk]={pv:pv};if(id)mt[id]={pv:pv};}else{try{var _bd=JSON.parse(r.body||'{}');if(_bd&&_bd.pv!==undefined){mt[mk]={pv:_bd.pv};if(id)mt[id]={pv:_bd.pv};}}catch(e){}}return;}
 
       var t=gt(a.name),p=pfn(a.name),id=p?p.id:null,an=id?gb(id):null;
 
@@ -550,7 +551,7 @@ function rp(mt){
 
     h+='<div class="time-range">'+(p.st?ft(p.st,p.et,p.c):(p.st?'':p.dk.slice(5)))+'</div>';if(p.st&&p.et){var _tm=tm(p.st,p.et,p.c),ds=ts(p.et,p.c,_tm)-ts(p.st,p.c,_tm);ds=Math.floor(ds/1000);if(ds>0){var dh=Math.floor(ds/3600),dm=Math.floor((ds%3600)/60);h+='<div class="dur">'+(dh>0?dh+"h "+dm+"m":dm+"m")+'</div>';}}else{h+='<div class="dur">--</div>';}h+='<div>';
 
-    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];if(typeof mu==='object'&&mu.pv){h+='<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(mu.pv).toLocaleString()+'</span>';}else{h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
+    let mkk=p.ri+'|'+p.st;let mu=mt&&mt[mkk];if(!mu&&p.ri&&mt[p.ri])mu=mt[p.ri];if(typeof mu==='object'&&mu&&mu.pv!==undefined){h+='<span class="pkl" style="color:var(--accent2)">\u2601 '+(Number(mu.pv)>0?Number(mu.pv).toLocaleString():'-')+'</span>';}else{h+='<span id="pk'+(mkk.replace(/[^0-9]/g,''))+'"></span>';if(typeof mu==='string'){let _mu=mu;(async function(kk,mi,url){try{var r2=await fetch(url,{headers:{Accept:'application/octet-stream',Authorization:'Bearer '+T}});var md2=await r2.json();var pe=document.getElementById('pk'+mi);if(pe)pe.innerHTML=md2.peak_viewers?'<span class="pkl" style="color:var(--accent2)">\u2601 '+Number(md2.peak_viewers).toLocaleString()+'</span>':'<span class="pkl">\u2601 -</span>';}catch(e){}})(mkk,mkk.replace(/[^0-9]/g,''),_mu);}}for(var k in ty){h+='<span class="file-badge">'+gi(k)+' '+ty[k]+'</span>';}
 
     h+='</div></div>';
 
